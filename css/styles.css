@@ -549,26 +549,33 @@ nav a:hover {
 /* ===== FINAL CTA ===== */
 .final-cta {
     padding: 80px 0;
-    background: linear-gradient(135deg, var(--primary), #0F1F3A);
-    color: white;
+    background: #F8FAFC;
+    color: var(--text);
     text-align: center;
 }
 
 .final-cta h2 {
     font-size: 42px;
     margin-bottom: 20px;
-    color: white;
+    color: var(--text);
 }
 
 .final-cta p {
     font-size: 18px;
     margin-bottom: 40px;
-    opacity: 0.9;
+    color: var(--text-light);
+}
+
+.final-cta .cta-button {
+    background: var(--secondary);
+    color: white;
+    padding: 16px 48px;
+    font-size: 18px;
 }
 
 /* ===== FOOTER ===== */
 footer {
-    background: #0F1F3A;
+    background: #0A1428;
     color: white;
     padding: 60px 0 20px;
 }
