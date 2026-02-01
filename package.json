@@ -1,0 +1,13 @@
+{
+  "name": "digisoft-website",
+  "version": "1.0.0",
+  "description": "Sitio web de marketing para Digisoft - ERP + OCR + IA",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "build": "echo 'No build process required for static site'"
+  },
+  "keywords": ["digisoft", "erp", "ocr", "ia", "facturas"],
+  "author": "",
+  "license": "MIT"
+}

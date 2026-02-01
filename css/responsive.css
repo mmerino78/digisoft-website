@@ -1,0 +1,301 @@
+/* ===== RESPONSIVE CSS ===== */
+
+/* TABLET - 768px y inferior */
+@media (max-width: 768px) {
+    nav ul {
+        gap: 20px;
+    }
+
+    nav a {
+        font-size: 14px;
+    }
+
+    .hero {
+        padding: 60px 0;
+    }
+
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero .subtitle {
+        font-size: 16px;
+    }
+
+    .cta-group {
+        flex-direction: column;
+    }
+
+    .cta-group a {
+        width: 100%;
+        text-align: center;
+    }
+
+    .modules-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .module-card {
+        padding: 30px;
+    }
+
+    .steps {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .step {
+        padding: 20px;
+    }
+
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pricing-card.popular {
+        transform: scale(1);
+    }
+
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+}
+
+/* MOBILE - 480px y inferior */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    header {
+        padding: 16px 0;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+
+    nav a {
+        padding: 8px 0;
+        font-size: 14px;
+    }
+
+    .hero {
+        padding: 40px 0;
+    }
+
+    .hero h1 {
+        font-size: 24px;
+        margin-bottom: 16px;
+    }
+
+    .hero .subtitle {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .benefits li {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .modules {
+        padding: 60px 0;
+    }
+
+    .modules h2 {
+        font-size: 24px;
+        margin-bottom: 40px;
+    }
+
+    .module-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .module-icon svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .module-card h3 {
+        font-size: 18px;
+    }
+
+    .module-card p {
+        font-size: 14px;
+    }
+
+    .alternate {
+        padding: 60px 0;
+    }
+
+    .alternate h2 {
+        font-size: 24px;
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .step {
+        padding: 20px;
+    }
+
+    .step-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .step h4 {
+        font-size: 16px;
+    }
+
+    .benefits-section {
+        padding: 60px 0;
+    }
+
+    .benefits-section h2 {
+        font-size: 24px;
+    }
+
+    .section-subtitle {
+        font-size: 14px;
+    }
+
+    .benefit-item {
+        padding: 20px;
+    }
+
+    .benefit-number {
+        font-size: 24px;
+    }
+
+    .benefit-item h3 {
+        font-size: 18px;
+    }
+
+    .pricing-section {
+        padding: 60px 0;
+    }
+
+    .pricing-section h2 {
+        font-size: 24px;
+    }
+
+    .pricing-toggle {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .toggle-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+        width: 100%;
+    }
+
+    .pricing-grid {
+        gap: 16px;
+    }
+
+    .pricing-card {
+        padding: 20px;
+    }
+
+    .pricing-card h3 {
+        font-size: 18px;
+    }
+
+    .price {
+        font-size: 28px;
+    }
+
+    .features li {
+        font-size: 13px;
+        padding: 10px 0 10px 20px;
+    }
+
+    .faq-section {
+        padding: 60px 0;
+    }
+
+    .faq-section h2 {
+        font-size: 24px;
+    }
+
+    .faq-question {
+        padding: 16px;
+        font-size: 14px;
+    }
+
+    .faq-answer {
+        padding: 0 16px;
+    }
+
+    .faq-item.active .faq-answer {
+        padding: 16px;
+    }
+
+    .final-cta {
+        padding: 60px 0;
+    }
+
+    .final-cta h2 {
+        font-size: 28px;
+    }
+
+    .final-cta p {
+        font-size: 14px;
+    }
+
+    footer {
+        padding: 40px 0 20px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .footer-section h4 {
+        font-size: 12px;
+    }
+
+    .footer-section a,
+    .footer-section p {
+        font-size: 12px;
+    }
+
+    .footer-bottom {
+        font-size: 12px;
+    }
+
+    .social-links {
+        gap: 12px;
+    }
+}
