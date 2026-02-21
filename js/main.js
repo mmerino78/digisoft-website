@@ -1,5 +1,33 @@
 /* ===== JAVASCRIPT MAIN ===== */
 
+// Menú móvil (hamburger)
+document.addEventListener('DOMContentLoaded', function () {
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', function (e) {
+            e.stopPropagation();
+            navLinks.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+
+        navLinks.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+    }
+});
+
 // Toggle entre precios mensual y anual
 function togglePricing(period) {
     // Actualizar botones
