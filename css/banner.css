@@ -1,6 +1,13 @@
 /* ===== BANNER DE ANUNCIO - Precio de Lanzamiento ===== */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
+/* Contenedor flotante: Banner + Header se mantienen juntos al hacer scroll */
+.sticky-top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+}
+
 .announcement-banner {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
