@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/banner.css">
+    <link rel="stylesheet" href="css/hero-pricing-launch.css">
 </head>
 <body>
     <!-- BANNER DE ANUNCIO - Precio de Lanzamiento -->
@@ -18,7 +19,7 @@
         <div class="announcement-banner__content">
             <span class="announcement-banner__badge">Oferta limitada</span>
             <p class="announcement-banner__text">
-                <strong>Precio de lanzamiento</strong> disponible hasta el 1 de mayo de 2026. No te quedes sin tu descuento.
+                <strong>Precio de lanzamiento</strong> disponible hasta el 15 de mayo de 2026. No te quedes sin tu descuento.
             </p>
             <a href="#pricing" class="announcement-banner__cta">Ver precios</a>
         </div>
@@ -50,18 +51,41 @@
         <div class="container">
             <div class="hero-content">
                 <div>
-                    <h1>Gestiona de forma inteligente tu <span class="highlight">Contabilidad</span></h1>
-                    <p class="subtitle">ERP diseñado para República Dominicana. Facturación electrónica, reportes DGII, inventarios y más en una sola plataforma.</p>
+                    <h1>Facturación Electrónica con <span class="highlight">soporte real en Bávaro-Punta Cana</span></h1>
+                    <p class="subtitle">Digisoft: El ERP local que no te deja solo ante la DGII. Implementación presencial en tu negocio.</p>
                     
+                    <!-- Countdown al 01/05/2026 -->
+                    <div class="countdown-wrapper" id="countdown">
+                        <div class="countdown-unit">
+                            <span class="countdown-unit__value" id="days">00</span>
+                            <span class="countdown-unit__label">Días</span>
+                        </div>
+                        <span class="countdown-separator">:</span>
+                        <div class="countdown-unit">
+                            <span class="countdown-unit__value" id="hours">00</span>
+                            <span class="countdown-unit__label">Horas</span>
+                        </div>
+                        <span class="countdown-separator">:</span>
+                        <div class="countdown-unit">
+                            <span class="countdown-unit__value" id="minutes">00</span>
+                            <span class="countdown-unit__label">Min</span>
+                        </div>
+                        <span class="countdown-separator">:</span>
+                        <div class="countdown-unit">
+                            <span class="countdown-unit__value" id="seconds">00</span>
+                            <span class="countdown-unit__label">Seg</span>
+                        </div>
+                    </div>
+
                     <ul class="benefits">
                         <li>Reportes 606, 607, 608 automáticos</li>
                         <li>Facturación electrónica integrada</li>
-                        <li>Control total de inventarios</li>
-                        <li>Soporte local 24/7</li>
+                        <li>Implementación en tu oficina</li>
+                        <li>Soporte físico en Punta Cana</li>
                     </ul>
 
                     <div class="cta-group">
-                        <a href="https://wa.me/18098412510" class="cta-button" target="_blank" rel="noopener noreferrer">Prueba Gratis 14 Días</a>
+                        <a href="https://wa.me/18098412510" class="cta-button cta-shine" target="_blank" rel="noopener noreferrer">Prueba Gratis 14 Días</a>
                     </div>
                     <p class="small-text">14 días gratis, sin tarjeta de crédito requerida</p>
                 </div>
@@ -163,6 +187,43 @@
         </div>
     </section>
 
+    <!-- ¿POR QUÉ NOSOTROS? -->
+    <section class="why-us-section">
+        <div class="container">
+            <h2>¿Por qué nosotros?</h2>
+            <p class="section-subtitle">La diferencia de tener un equipo cerca cuando más lo necesitas.</p>
+            <div class="why-us-grid">
+                <div class="why-us-card">
+                    <div class="why-us-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3>Cumplimiento DGII garantizado</h3>
+                    <p>Reportes 606, 607, 608 y facturación electrónica siempre al día. Te acompañamos en cada declaración.</p>
+                </div>
+                <div class="why-us-card">
+                    <div class="why-us-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
+                    </div>
+                    <h3>Soporte en tu oficina</h3>
+                    <p>No más tickets infinitos. Equipo en Punta Cana que va a tu negocio cuando lo necesitas.</p>
+                </div>
+                <div class="why-us-card">
+                    <div class="why-us-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                        </svg>
+                    </div>
+                    <h3>Migración de datos sin costo</h3>
+                    <p>Pasamos tu información desde Excel o cualquier sistema sin cargo adicional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CÓMO AYUDAMOS -->
     <section class="benefits-section">
         <div class="container">
@@ -204,18 +265,24 @@
             <p class="section-subtitle">ERP diseñado para empresas en República Dominicana, sin costos ocultos y con soporte real.</p>
             
             <div class="pricing-toggle">
-                <button class="toggle-btn active" onclick="togglePricing('monthly')">Mensual</button>
-                <button class="toggle-btn" onclick="togglePricing('annual')">Anual (Ahorras 20%)</button>
+                <button class="toggle-btn active" data-period="monthly">Mensual</button>
+                <button class="toggle-btn" data-period="annual">Anual (Ahorras 20%)</button>
             </div>
 
             <div class="pricing-grid">
                 <!-- PLAN BÁSICO -->
                 <div class="pricing-card">
+                    <span class="pricing-launch-label">Tarifa Especial de Lanzamiento</span>
                     <h3>Básico</h3>
                     <p class="plan-subtitle">Solo facturación</p>
                     <div class="price">
                         <span class="monthly" style="display: block;">$35<span>/mes</span></span>
                         <span class="annual" style="display: none;">$336<span>/año</span></span>
+                    </div>
+                    <p class="pricing-price-increase-note">El precio aumentará a tarifa regular después del 15 de mayo</p>
+                    <div class="cta-wrapper">
+                        <a href="https://digisoft.do" target="_blank" rel="noopener noreferrer" class="cta-button cta-shine" style="width: 100%; text-align: center; display: block;">Ver Precio de Lanzamiento</a>
+                        <div class="location-badge">Equipo basado en Punta Cana - Soporte físico inmediato</div>
                     </div>
                     <ul class="features">
                         <li>Facturación electrónica</li>
@@ -231,11 +298,17 @@
                 <!-- PLAN STANDARD (POPULAR) -->
                 <div class="pricing-card popular">
                     <div class="badge">Popular</div>
+                    <span class="pricing-launch-label">Tarifa Especial de Lanzamiento</span>
                     <h3>Standard</h3>
                     <p class="plan-subtitle">Ideal para pymes</p>
                     <div class="price">
                         <span class="monthly" style="display: block;">$45<span>/mes</span></span>
                         <span class="annual" style="display: none;">$432<span>/año</span></span>
+                    </div>
+                    <p class="pricing-price-increase-note">El precio aumentará a tarifa regular después del 15 de mayo</p>
+                    <div class="cta-wrapper">
+                        <a href="https://digisoft.do" target="_blank" rel="noopener noreferrer" class="cta-button cta-shine" style="width: 100%; text-align: center; display: block;">Ver Precio de Lanzamiento</a>
+                        <div class="location-badge">Equipo basado en Punta Cana - Soporte físico inmediato</div>
                     </div>
                     <ul class="features">
                         <li>Facturación electrónica</li>
@@ -251,11 +324,17 @@
 
                 <!-- PLAN PLUS -->
                 <div class="pricing-card">
+                    <span class="pricing-launch-label">Tarifa Especial de Lanzamiento</span>
                     <h3>Plus</h3>
                     <p class="plan-subtitle">Grandes empresas</p>
                     <div class="price">
                         <span class="monthly" style="display: block;">$60<span>/mes</span></span>
                         <span class="annual" style="display: none;">$576<span>/año</span></span>
+                    </div>
+                    <p class="pricing-price-increase-note">El precio aumentará a tarifa regular después del 15 de mayo</p>
+                    <div class="cta-wrapper">
+                        <a href="https://digisoft.do" target="_blank" rel="noopener noreferrer" class="cta-button cta-shine" style="width: 100%; text-align: center; display: block;">Ver Precio de Lanzamiento</a>
+                        <div class="location-badge">Equipo basado en Punta Cana - Soporte físico inmediato</div>
                     </div>
                     <ul class="features">
                         <li>Facturación electrónica</li>
@@ -346,7 +425,7 @@
         <div class="container">
             <h2>Comienza a gestionar tu negocio inteligentemente</h2>
             <p>14 días gratis. Sin tarjeta de crédito. Soporte local incluido.</p>
-            <a href="https://wa.me/18098412510" class="cta-button large" target="_blank" rel="noopener noreferrer">Agenda una demo</a>
+            <a href="https://wa.me/18098412510" class="cta-button cta-shine large" target="_blank" rel="noopener noreferrer">Agenda una demo</a>
         </div>
     </section>
 

@@ -1,0 +1,228 @@
+/* ===== HERO & PRICING - ESTRATEGIA ESCASEZ + CERCANÍA LOCAL ===== */
+
+/* ----- COUNTDOWN TIMER (estilo Apple/Stripe) ----- */
+.countdown-wrapper {
+    background: linear-gradient(135deg, rgba(24, 53, 94, 0.06) 0%, rgba(16, 185, 129, 0.04) 100%);
+    border: 1px solid rgba(24, 53, 94, 0.12);
+    border-radius: 16px;
+    padding: 24px 32px;
+    display: inline-flex;
+    gap: 20px;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+.countdown-unit {
+    text-align: center;
+    min-width: 64px;
+}
+
+.countdown-unit__value {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+}
+
+.countdown-unit__label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+}
+
+.countdown-separator {
+    font-size: 24px;
+    font-weight: 300;
+    color: var(--text-light);
+    opacity: 0.5;
+    align-self: center;
+}
+
+@media (max-width: 600px) {
+    .countdown-wrapper {
+        padding: 16px 20px;
+        gap: 12px;
+    }
+    .countdown-unit {
+        min-width: 48px;
+    }
+    .countdown-unit__value {
+        font-size: 22px;
+    }
+    .countdown-unit__label {
+        font-size: 10px;
+    }
+}
+
+/* ----- CTA CON MICRO-ANIMACIÓN DE BRILLO ----- */
+.cta-shine {
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-shine::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.25),
+        transparent
+    );
+    animation: cta-shine 3s ease-in-out infinite;
+}
+
+@keyframes cta-shine {
+    0% { left: -100%; }
+    50%, 100% { left: 150%; }
+}
+
+.cta-shine {
+    animation: cta-pulse-subtle 2.5s ease-in-out infinite;
+}
+
+@keyframes cta-pulse-subtle {
+    0%, 100% { box-shadow: 0 4px 14px rgba(34, 197, 94, 0.4); }
+    50% { box-shadow: 0 6px 24px rgba(34, 197, 94, 0.55); }
+}
+
+/* ----- BADGE DE UBICACIÓN ----- */
+.location-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(14, 165, 233, 0.08) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-top: 12px;
+}
+
+.location-badge::before {
+    content: '📍';
+    font-size: 16px;
+}
+
+/* ----- PRICING: Tarifa Especial ----- */
+.pricing-launch-label {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--secondary) 0%, #ff8a5c 100%);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+.pricing-price-increase-note {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgba(255, 107, 53, 0.08);
+    border-radius: 8px;
+    border-left: 3px solid var(--secondary);
+}
+
+.pricing-card .cta-wrapper {
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+
+.pricing-card .cta-button {
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%) !important;
+}
+
+.pricing-card .cta-button:hover {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%) !important;
+}
+
+/* ----- ¿POR QUÉ NOSOTROS? ----- */
+.why-us-section {
+    padding: 80px 0;
+    background: white;
+}
+
+.why-us-section h2 {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 16px;
+    color: var(--text);
+}
+
+.why-us-section .section-subtitle {
+    margin-bottom: 48px;
+}
+
+.why-us-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.why-us-card {
+    background: #F8FAFC;
+    border-radius: 14px;
+    padding: 32px 28px;
+    text-align: center;
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.why-us-card:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 8px 24px rgba(255, 107, 53, 0.08);
+    transform: translateY(-2px);
+}
+
+.why-us-card__icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, var(--secondary), #ff8a5c);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.why-us-card__icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.why-us-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--text);
+}
+
+.why-us-card p {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .why-us-grid {
+        grid-template-columns: 1fr;
+    }
+}
