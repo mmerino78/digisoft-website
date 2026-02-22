@@ -1,0 +1,111 @@
+/* ===== BANNER DE ANUNCIO - Precio de Lanzamiento ===== */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+.announcement-banner {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Efecto de brillo sutil */
+.announcement-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    animation: shimmer 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { left: -100%; }
+    50% { left: 150%; }
+}
+
+.announcement-banner__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.announcement-banner__badge {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+}
+
+.announcement-banner__text {
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.announcement-banner__text strong {
+    font-weight: 800;
+    color: #fbbf24;
+}
+
+.announcement-banner__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: #fff !important;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 14px rgba(34, 197, 94, 0.4);
+    white-space: nowrap;
+}
+
+.announcement-banner__cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+}
+
+.announcement-banner__cta:active {
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .announcement-banner {
+        padding: 0.6rem 1rem;
+        gap: 0.75rem;
+    }
+
+    .announcement-banner__text {
+        font-size: 0.85rem;
+        text-align: center;
+    }
+
+    .announcement-banner__cta {
+        font-size: 0.85rem;
+        padding: 0.45rem 1rem;
+    }
+}
