@@ -129,6 +129,20 @@
     margin-bottom: 12px;
 }
 
+/* Precio normal tachado vs precio de lanzamiento resaltado */
+.price .price-original {
+    text-decoration: line-through;
+    color: #c75c5c;
+    font-size: 0.85em;
+    font-weight: 500;
+    margin-right: 0.35em;
+}
+
+.price .price-launch {
+    color: #16a34a;
+    font-weight: 700;
+}
+
 .pricing-price-increase-note {
     font-size: 12px;
     color: var(--text-light);
