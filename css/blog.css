@@ -1,0 +1,239 @@
+/* ===== BLOG: listado y artículo ===== */
+
+.blog-hero {
+    padding: 60px 0 40px;
+    background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%);
+}
+
+.blog-hero h1 {
+    font-size: 36px;
+    margin-bottom: 12px;
+    color: var(--text);
+}
+
+.blog-hero .section-subtitle {
+    font-size: 18px;
+    color: var(--text-light);
+    margin-bottom: 0;
+}
+
+.post-list {
+    padding: 40px 0 80px;
+    background: white;
+}
+
+.post-list .container {
+    max-width: 900px;
+}
+
+.post-list h2 {
+    font-size: 28px;
+    margin-bottom: 32px;
+    color: var(--text);
+}
+
+.post-list-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.post-card {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s;
+    overflow: hidden;
+}
+
+.post-card:hover {
+    border-color: var(--secondary);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.post-card__thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--border);
+    overflow: hidden;
+}
+
+.post-card__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.post-card__body {
+    padding: 28px;
+}
+
+.post-card__title {
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: var(--primary);
+}
+
+.post-card:hover .post-card__title {
+    color: var(--secondary);
+}
+
+.post-card__meta {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 12px;
+}
+
+.post-card__excerpt {
+    font-size: 16px;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* Portada del artículo */
+.blog-article__cover {
+    margin-bottom: 32px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.blog-article__cover img {
+    width: 100%;
+    height: auto;
+    display: block;
+    vertical-align: top;
+}
+
+/* Página de artículo */
+.blog-main {
+    padding: 40px 0 80px;
+    background: #F8FAFC;
+    min-height: 60vh;
+}
+
+.blog-article {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.blog-article__header {
+    margin-bottom: 32px;
+}
+
+.blog-breadcrumb {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-bottom: 16px;
+}
+
+.blog-breadcrumb a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.blog-breadcrumb a:hover {
+    color: var(--secondary);
+    text-decoration: underline;
+}
+
+.blog-article__title {
+    font-size: 32px;
+    line-height: 1.25;
+    margin-bottom: 12px;
+    color: var(--text);
+}
+
+.blog-article__meta {
+    font-size: 15px;
+    color: var(--text-light);
+}
+
+.blog-article__author {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.article-content {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.article-lead {
+    font-size: 18px;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+.article-content h2 {
+    font-size: 22px;
+    margin: 32px 0 16px;
+    color: var(--text);
+}
+
+.article-content h2:first-of-type {
+    margin-top: 0;
+}
+
+.article-content h3 {
+    font-size: 18px;
+    margin: 24px 0 12px;
+    color: var(--text);
+}
+
+.article-content p {
+    margin-bottom: 16px;
+    line-height: 1.7;
+    color: var(--text);
+}
+
+.article-content ul,
+.article-content ol {
+    margin: 16px 0 16px 24px;
+    line-height: 1.7;
+}
+
+.article-content a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.article-content a:hover {
+    color: var(--secondary);
+    text-decoration: underline;
+}
+
+@media (min-width: 769px) {
+    .post-card {
+        flex-direction: row;
+    }
+    .post-card__thumb {
+        width: 280px;
+        min-width: 280px;
+        aspect-ratio: 16 / 10;
+    }
+    .post-card__body {
+        flex: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .blog-hero h1 {
+        font-size: 28px;
+    }
+    .blog-article__title {
+        font-size: 26px;
+    }
+    .article-content {
+        padding: 24px;
+    }
+}
