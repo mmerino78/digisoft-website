@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://digisoft.do/</loc>
+    <image:image>
+      <image:loc>https://digisoft.do/images/hero/erp-dashboard.png</image:loc>
+      <image:title>Dashboard ERP Digisoft - Sistema contable para empresas en República Dominicana</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://digisoft.do/images/hero/erp.jpg</image:loc>
+      <image:title>Digisoft ERP - Facturación electrónica y contabilidad en RD</image:title>
+    </image:image>
+  </url>
+
+  <!-- Blog: Software 100% dominicano -->
+  <url>
+    <loc>https://digisoft.do/blog/software-100-dominicano/</loc>
+    <image:image>
+      <image:loc>https://digisoft.do/images/blog/software-100-dominicano-cover.jpg</image:loc>
+      <image:title>Software ERP 100% dominicano - Digisoft por Digisol SRL</image:title>
+    </image:image>
+  </url>
+
+  <!-- Blog: Facturación electrónica RD -->
+  <url>
+    <loc>https://digisoft.do/blog/facturacion-electronica-rd-guia-2026/</loc>
+    <image:image>
+      <image:loc>https://digisoft.do/images/blog/facturacion-electronica-rd-guia-2026-cover.jpg</image:loc>
+      <image:title>Facturación electrónica en República Dominicana - Guía 2026</image:title>
+    </image:image>
+  </url>
+
+  <!-- Blog: e-CF y NCF electrónico -->
+  <url>
+    <loc>https://digisoft.do/blog/ecf-ncf-electronico-republica-dominicana/</loc>
+    <image:image>
+      <image:loc>https://digisoft.do/images/blog/ecf-ncf-electronico-republica-dominicana-cover.jpg</image:loc>
+      <image:title>e-CF y NCF electrónico en República Dominicana - Comprobante fiscal electrónico DGII</image:title>
+    </image:image>
+  </url>
+
+  <!-- Blog: Software contabilidad pymes -->
+  <url>
+    <loc>https://digisoft.do/blog/software-contabilidad-pymes-republica-dominicana/</loc>
+    <image:image>
+      <image:loc>https://digisoft.do/images/blog/software-contabilidad-pymes-republica-dominicana-cover.jpg</image:loc>
+      <image:title>Software de contabilidad para pymes en República Dominicana</image:title>
+    </image:image>
+  </url>
+
+  <!-- Blog: Reportes 606 607 608 -->
+  <url>
+    <loc>https://digisoft.do/blog/reportes-606-607-608-dgii-republica-dominicana/</loc>
+    <image:image>
+      <image:loc>https://digisoft.do/images/blog/reportes-606-607-608-dgii-republica-dominicana-cover.jpg</image:loc>
+      <image:title>Reportes 606 607 608 DGII - Guía completa para empresas en República Dominicana</image:title>
+    </image:image>
+  </url>
+
+</urlset>

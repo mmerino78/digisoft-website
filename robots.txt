@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://digisoft.do/sitemap.xml
+Sitemap: https://digisoft.do/sitemap-images.xml
