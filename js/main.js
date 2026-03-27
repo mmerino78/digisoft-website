@@ -41,6 +41,64 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    const demoForm = document.getElementById('demo-form');
+    if (demoForm) {
+        demoForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const btn = demoForm.querySelector('.demo-form__submit');
+            const originalText = btn.textContent;
+            btn.textContent = 'Enviando...';
+            btn.disabled = true;
+
+            const empresa = demoForm.querySelector('#demo-empresa').value.trim();
+            const email = demoForm.querySelector('#demo-email').value.trim();
+            const telefono = demoForm.querySelector('#demo-telefono').value.trim();
+
+            // Misma API que digisol.do/contact (SMTP único en Vercel Digisol)
+            const formData = {
+                nombre: empresa,
+                email: email,
+                telefono: telefono,
+                servicio: 'desarrollo',
+                mensaje: '[Digisoft — solicitud de demo gratuita desde digisoft.do]\n\nPor favor contactar para coordinar la demo del ERP.'
+            };
+
+            fetch('https://digisol.do/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            })
+                .then(function (res) {
+                    return res.json().then(function (data) {
+                        return { ok: res.ok, data: data };
+                    });
+                })
+                .then(function (result) {
+                    if (result.ok && result.data.success) {
+                        btn.textContent = '¡Enviado!';
+                        demoForm.reset();
+                        alert('¡Listo! Hemos recibido tu solicitud. Te contactaremos pronto.');
+                        if (typeof gtag === 'function') {
+                            gtag('event', 'demo_request', { event_category: 'form', event_label: 'success' });
+                        }
+                    } else {
+                        btn.textContent = 'Reintentar';
+                        alert(result.data.error || 'No se pudo enviar. Prueba por WhatsApp.');
+                    }
+                })
+                .catch(function () {
+                    btn.textContent = 'Reintentar';
+                    alert('No se pudo conectar. Comprueba tu conexión o escríbenos por WhatsApp.');
+                })
+                .finally(function () {
+                    setTimeout(function () {
+                        btn.textContent = originalText;
+                        btn.disabled = false;
+                    }, 3000);
+                });
+        });
+    }
 });
 
 // Toggle entre precios mensual y anual

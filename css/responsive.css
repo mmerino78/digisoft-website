@@ -304,6 +304,14 @@
         font-size: 14px;
     }
 
+    .demo-form-wrap {
+        padding: 24px 20px;
+    }
+
+    .demo-form-wrap__title {
+        font-size: 19px;
+    }
+
     footer {
         padding: 40px 0 20px;
     }
