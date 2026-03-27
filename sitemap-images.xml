@@ -15,6 +15,31 @@
     </image:image>
   </url>
 
+  <!-- Blog index -->
+  <url>
+    <loc>https://digisoft.do/blog/</loc>
+    <image:image>
+      <image:loc>https://digisoft.do/images/blog/reportes-606-607-608-dgii-republica-dominicana-thumb.jpg</image:loc>
+      <image:title>Reportes 606 607 608 DGII República Dominicana</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://digisoft.do/images/blog/software-contabilidad-pymes-republica-dominicana-thumb.jpg</image:loc>
+      <image:title>Software de contabilidad para pymes en República Dominicana</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://digisoft.do/images/blog/ecf-ncf-electronico-republica-dominicana-thumb.jpg</image:loc>
+      <image:title>e-CF y NCF electrónico en República Dominicana</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://digisoft.do/images/blog/software-100-dominicano-thumb.jpg</image:loc>
+      <image:title>Software 100% dominicano</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://digisoft.do/images/blog/facturacion-electronica-rd-guia-2026-thumb.jpg</image:loc>
+      <image:title>Facturación electrónica en RD - Guía 2026</image:title>
+    </image:image>
+  </url>
+
   <!-- Blog: Software 100% dominicano -->
   <url>
     <loc>https://digisoft.do/blog/software-100-dominicano/</loc>
