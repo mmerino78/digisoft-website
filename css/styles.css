@@ -432,6 +432,8 @@ nav a:hover {
     padding: 40px;
     position: relative;
     transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
 }
 
 .pricing-card.popular {
@@ -473,10 +475,20 @@ nav a:hover {
     color: var(--text-light);
 }
 
-.pricing-card .cta-button {
+.pricing-card .features {
+    flex: 1 1 auto;
+}
+
+.pricing-card__cta {
+    margin-top: auto;
+    padding-top: 28px;
+}
+
+.pricing-card__cta .cta-button {
     width: 100%;
     text-align: center;
-    margin-bottom: 30px;
+    display: block;
+    box-sizing: border-box;
 }
 
 .features {

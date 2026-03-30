@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 email: email,
                 telefono: telefono,
                 servicio: 'desarrollo',
-                mensaje: '[Digisoft — solicitud de demo gratuita desde digisoft.do]\n\nPor favor contactar para coordinar la demo del ERP.'
+                mensaje: '[Digisoft — solicitud de prueba gratuita desde digisoft.do]\n\nEnviar al correo indicado la invitación para activar la prueba gratuita del ERP.'
             };
 
             fetch('https://digisol.do/api/contact', {
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (result.ok && result.data.success) {
                         btn.textContent = '¡Enviado!';
                         demoForm.reset();
-                        alert('¡Listo! Hemos recibido tu solicitud. Te contactaremos pronto.');
+                        alert('Su mensaje se ha enviado correctamente.');
                         if (typeof gtag === 'function') {
                             gtag('event', 'demo_request', { event_category: 'form', event_label: 'success' });
                         }

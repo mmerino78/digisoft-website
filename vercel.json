@@ -1,4 +1,11 @@
 {
   "cleanUrls": true,
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "https://www.digisoft.do/(.*)",
+      "destination": "https://digisoft.do/$1",
+      "permanent": true
+    }
+  ]
 }
