@@ -3,8 +3,14 @@
   "trailingSlash": true,
   "redirects": [
     {
-      "source": "https://www.digisoft.do/(.*)",
-      "destination": "https://digisoft.do/$1",
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.digisoft.do"
+        }
+      ],
+      "destination": "https://digisoft.do/:path*",
       "permanent": true
     }
   ]
