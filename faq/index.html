@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WJ595SLB');</script>
+<!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://digisoft.do/faq/">
+    <meta name="description" content="Preguntas frecuentes sobre Digisoft ERP: facturación electrónica DGII, planes, prueba gratuita, contabilidad, inventario, soporte y migración de datos en República Dominicana.">
+    <title>Preguntas Frecuentes | Digisoft ERP - República Dominicana</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/banner.css">
+    <link rel="stylesheet" href="/css/blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Digisoft", "item": "https://digisoft.do/"},
+        {"@type": "ListItem", "position": 2, "name": "Preguntas Frecuentes", "item": "https://digisoft.do/faq/"}
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"¿Qué es Digisoft?","acceptedAnswer":{"@type":"Answer","text":"Digisoft es un ERP moderno desarrollado para empresas en República Dominicana. Integra contabilidad, facturación electrónica, inventario, ventas, punto de venta y gestión administrativa en una única plataforma en la nube."}},
+        {"@type":"Question","name":"¿Hay una prueba gratuita?","acceptedAnswer":{"@type":"Answer","text":"Sí, 14 días completamente gratis, sin tarjeta de crédito y sin obligación de compra."}},
+        {"@type":"Question","name":"¿La facturación electrónica está integrada con la DGII?","acceptedAnswer":{"@type":"Answer","text":"Sí, completamente. Genera facturas válidas ante la DGII y los reportes 606, 607 y 608. Incluida en todos los planes."}},
+        {"@type":"Question","name":"¿Cómo se calculan los precios?","acceptedAnswer":{"@type":"Answer","text":"Los planes se basan en la cantidad de transacciones, no en el monto facturado."}},
+        {"@type":"Question","name":"¿Cómo es el proceso de migración desde otro sistema?","acceptedAnswer":{"@type":"Answer","text":"Exportas tus datos en Excel, los enviamos al equipo que los valida e importa. Sin costo adicional, generalmente en 1-2 semanas."}},
+        {"@type":"Question","name":"¿Qué soporte ofrecen?","acceptedAnswer":{"@type":"Answer","text":"Soporte completo vía WhatsApp +1 (809) 841-2510, email info@digisol.do y videollamada. Disponible lunes a viernes 9AM-6PM."}}
+      ]
+    }
+    </script>
+    <style>
+        /* Filtros de categoría */
+        .faq-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            padding: 32px 20px 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .faq-filter-btn {
+            padding: 8px 18px;
+            border-radius: 9999px;
+            border: 1.5px solid var(--border);
+            background: #fff;
+            color: var(--text-light);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.18s;
+            white-space: nowrap;
+            font-family: inherit;
+        }
+        .faq-filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .faq-filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        /* Categorías */
+        .faq-page-body {
+            padding: 40px 0 80px;
+            background: white;
+        }
+        .faq-category {
+            max-width: 800px;
+            margin: 0 auto 48px;
+            padding: 0 20px;
+        }
+        .faq-category.hidden { display: none; }
+
+        .faq-category-label {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        /* Reutiliza .faq-item / .faq-question / .faq-answer de styles.css */
+        .faq-answer ul {
+            margin: 8px 0 8px 20px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        .faq-answer ul li { margin-bottom: 4px; }
+
+        /* CTA inferior */
+        .faq-page-cta {
+            background: #F8FAFC;
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        .faq-page-cta h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+        .faq-page-cta p {
+            color: var(--text-light);
+            margin-bottom: 28px;
+        }
+        .faq-page-cta .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .faq-page-cta .btn-outline {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1rem;
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .faq-page-cta .btn-outline:hover { background: #EEF2F8; }
+    </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJ595SLB"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+    <div class="sticky-top-bar">
+        <div class="announcement-banner">
+            <div class="announcement-banner__content">
+                <span class="announcement-banner__badge">Oferta limitada</span>
+                <p class="announcement-banner__text">
+                    <strong>Precio de lanzamiento</strong> disponible hasta el 15 de mayo de 2026.
+                </p>
+                <a href="/#pricing" class="announcement-banner__cta">Ver precios</a>
+            </div>
+        </div>
+        <header>
+            <div class="container">
+                <nav>
+                    <a href="/" class="logo">
+                        <img src="/images/logo-digisol-full.png" alt="Digisoft Logo" style="height: 40px; vertical-align: middle;">
+                    </a>
+                    <button class="hamburger" aria-label="Menú">
+                        <span></span><span></span><span></span>
+                    </button>
+                    <ul class="nav-links">
+                        <li><a href="/#inicio">Inicio</a></li>
+                        <li><a href="/#modulos">Módulos</a></li>
+                        <li><a href="/#pricing">Precios</a></li>
+                        <li><a href="/faq/">FAQ</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/#contacto" class="cta-button">Prueba Gratis</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+    </div>
+
+    <section class="blog-hero">
+        <div class="container">
+            <h1 style="color: var(--secondary); text-align: center;">Preguntas frecuentes</h1>
+            <p class="section-subtitle">Todo lo que necesitas saber sobre Digisoft ERP, facturación electrónica DGII y cómo gestionar tu empresa en República Dominicana.</p>
+        </div>
+    </section>
+
+    <!-- Filtros -->
+    <div class="faq-filters" id="faq-filters">
+        <button class="faq-filter-btn active" data-cat="all">Todas</button>
+        <button class="faq-filter-btn" data-cat="general">General</button>
+        <button class="faq-filter-btn" data-cat="planes">Planes y precios</button>
+        <button class="faq-filter-btn" data-cat="prueba">Prueba gratuita</button>
+        <button class="faq-filter-btn" data-cat="facturacion">Facturación electrónica</button>
+        <button class="faq-filter-btn" data-cat="contabilidad">Contabilidad</button>
+        <button class="faq-filter-btn" data-cat="inventario">Inventario</button>
+        <button class="faq-filter-btn" data-cat="ventas">Ventas</button>
+        <button class="faq-filter-btn" data-cat="migracion">Migración</button>
+        <button class="faq-filter-btn" data-cat="soporte">Soporte</button>
+        <button class="faq-filter-btn" data-cat="seguridad">Seguridad</button>
+    </div>
+
+    <div class="faq-page-body">
+
+        <!-- General -->
+        <div class="faq-category" data-cat="general">
+            <div class="faq-category-label">General</div>
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Qué es Digisoft?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Digisoft es un ERP (Enterprise Resource Planning) moderno desarrollado específicamente para empresas en República Dominicana. Integra contabilidad, facturación electrónica, inventario, ventas, punto de venta (POS) y gestión administrativa en una única plataforma basada en la nube, sin necesidad de instalación local.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Cuál es la diferencia entre Digisol y Digisoft?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p><strong>Digisol</strong> es la empresa desarrolladora que proporciona el servicio y soporte técnico. <strong>Digisoft</strong> es el nombre del software ERP. Son parte del mismo ecosistema: cuando contratas Digisoft, trabajas directamente con el equipo de Digisol.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Desde dónde puedo acceder?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Digisoft es 100% en la nube. Accedes desde cualquier navegador moderno usando tu correo y contraseña. No requiere instalación ni mantenimiento local. Funciona en computadoras, tablets y smartphones.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿El sistema se adapta a mi tipo de negocio?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sí. Digisoft es flexible y adaptable a múltiples sectores: construcción, comercio minorista, distribución, servicios profesionales, manufactura y más. También soporta múltiples empresas o sucursales, cada una con sus datos independientes.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Qué navegadores soporta?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Todos los navegadores modernos: <strong>Chrome</strong> (recomendado), Firefox, Safari, Edge y Opera. No se requiere Internet de alta velocidad; funciona con cualquier conexión estable.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Planes y precios -->
+        <div class="faq-category" data-cat="planes">
+            <div class="faq-category-label">Planes y precios</div>
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Cómo se calculan los precios? ¿Dependen del monto facturado?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>No. Los planes se basan en la <strong>cantidad de transacciones</strong> (facturas de compra y venta), no en el monto facturado. Esto es más justo que otros ERP que cobran por volumen de dinero.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿El precio promocional es permanente?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>El precio que asumas durante la promoción (válida hasta el <strong>15 de mayo de 2026</strong>) se mantiene fijo mientras sigas suscrito, incluso después del aumento.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Puedo pagar anualmente?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sí. Con pago anual ahorras aproximadamente <strong>20%</strong> respecto al pago mensual, y aseguras el precio actual más allá de la fecha promocional.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Puedo cambiar de plan o cancelar?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sí, puedes actualizar o bajar de plan en cualquier momento; los cambios aplican inmediatamente con ajuste proporcional. No hay contratos ni penalidades por cancelación.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Qué pasa si supero el límite de transacciones?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Puedes actualizar a un plan superior en cualquier momento. Nuestro equipo te ayudará a identificar la opción más adecuada según tu volumen.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Prueba gratuita -->
+        <div class="faq-category" data-cat="prueba">
+            <div class="faq-category-label">Prueba gratuita</div>
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Hay una prueba gratuita?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sí, ofrecemos <strong>14 días de prueba gratuita</strong> completamente funcional, sin tarjeta de crédito y sin obligación de compra. Tendrás acceso total a todas las funcionalidades del plan Standard.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Cómo la solicito?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Tienes dos opciones:</p>
+                        <ul>
+                            <li><strong>Formulario en línea:</strong> completa el formulario de contacto en la web y recibirás la invitación por correo.</li>
+                            <li><strong>WhatsApp:</strong> escríbenos al +1 (809) 841-2510 y te enviamos el enlace de activación de inmediato.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Qué puedo hacer durante la prueba?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <ul>
+                            <li>Crear tu empresa en el sistema</li>
+                            <li>Cargar clientes, proveedores y productos</li>
+                            <li>Hacer pruebas de facturación</li>
+                            <li>Explorar todos los módulos y generar reportes</li>
+                            <li>Recibir soporte técnico y capacitación inicial</li>
+                        </ul>
+                        <p>No se requiere descargar ni instalar nada; solo un navegador y conexión a internet.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Facturación electrónica -->
+        <div class="faq-category" data-cat="facturacion">
+            <div class="faq-category-label">Facturación electrónica</div>
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿La facturación electrónica está integrada con la DGII?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sí, completamente. La facturación electrónica está incorporada directamente en el sistema, no es una API externa ni un módulo aparte. Digisoft genera automáticamente facturas válidas ante la DGII y los reportes fiscales 606, 607 y 608. Está incluida en <strong>todos los planes</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Qué necesito para facturar electrónicamente?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <ul>
+                            <li>Obtener un <strong>certificado digital</strong> de la DGII</li>
+                            <li>Realizar la <strong>postulación con la DGII</strong> para que autorice tu facturación electrónica</li>
+                            <li>Proporcionar los <strong>datos de tu empresa</strong> (RNC, nombre comercial, dirección, email)</li>
+                        </ul>
+                        <p>Nuestro equipo te acompaña en todo el proceso de validación y activación.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Qué reportes fiscales genera el sistema?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <ul>
+                            <li><strong>Informe 606:</strong> Registro de compras a proveedores</li>
+                            <li><strong>Informe 607:</strong> Registro de ventas a clientes</li>
+                            <li><strong>Informe 608:</strong> Cancelaciones y ajustes</li>
+                            <li><strong>Estados de cuenta:</strong> Pendientes de clientes</li>
+                            <li><strong>Reportes contables:</strong> Balanzas, mayores, catálogos de cuentas</li>
+                        </ul>
+                        <p>Todos conforme a los formatos oficiales de la DGII.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Qué datos requiere cada factura?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <ul>
+                            <li>Datos del cliente (nombre, RNC si es empresa)</li>
+                            <li>Productos o servicios (código, descripción, cantidad, precio)</li>
+                            <li>Forma de pago y concepto de venta</li>
+                        </ul>
+                        <p>El sistema completa automáticamente el RNC de tu empresa, fecha, número de factura y demás datos obligatorios.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Contabilidad -->
+        <div class="faq-category" data-cat="contabilidad">
+            <div class="faq-category-label">Contabilidad</div>
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Tiene contabilidad completa?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sí. Digisoft incluye un módulo contable completo diseñado para los requisitos fiscales de República Dominicana:</p>
+                        <ul>
+                            <li>Catálogo de cuentas personalizable</li>
+                            <li>Asientos contables manuales y automáticos</li>
+                            <li>Balanzas de comprobación y mayores por cuenta</li>
+                            <li>Tesorería y control de flujo de caja</li>
+                            <li>Cuentas por cobrar y por pagar</li>
+                            <li>Conciliaciones bancarias</li>
+                            <li>Estados financieros (balances y resultados)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Cómo genero estados de cuenta para clientes?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Desde el módulo de <strong>Cuentas por Cobrar</strong> puedes filtrar facturas pendientes por cliente, exportar estados de cuenta en PDF o Excel, ver resúmenes de saldos y generar reportes de antigüedad de deudas.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Inventario -->
+        <div class="faq-category" data-cat="inventario">
+            <div class="faq-category-label">Inventario y productos</div>
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Cómo funciona la gestión de inventario?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Digisoft maneja inventario en tiempo real: control de stock por almacén (hasta 10 según el plan), movimientos automáticos por venta/compra/devolución, listas de precios por zona o cliente, y reportes de disponibilidad actualizados.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Cómo importo mis productos al sistema?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Prepara un archivo Excel con: nombre, código/SKU, stock, precio de venta y categoría (opcional). Envíanoslo y nuestro equipo valida e importa los datos. <strong>La importación es sin costo adicional.</strong></p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Puedo organizar productos por categorías o unidades?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sí. El sistema permite crear categorías y soporta todas las unidades de medida habilitadas por la DGII (unidades, libras, kilogramos, metros, etc.).</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Ventas -->
+        <div class="faq-category" data-cat="ventas">
+            <div class="faq-category-label">Ventas, cotizaciones y POS</div>
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Cómo creo una cotización y la convierto en factura?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>En el módulo de <strong>Ventas</strong> seleccionas el cliente, agregas productos y el sistema calcula subtotal, impuestos y total. Desde una cotización aprobada puedes crear la factura directamente, trasladando todos los datos automáticamente.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Cómo registro pagos?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Desde cada factura o desde el módulo de Tesorería. Soporta efectivo, cheque, transferencia bancaria, tarjeta, depósito y otras formas personalizables. Admite pagos totales, parciales o en cuotas. Cada movimiento se integra automáticamente con contabilidad.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Tiene módulo POS?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sí, estamos desarrollando un <strong>módulo POS moderno</strong> que estará disponible próximamente. Estará completamente integrado con inventario en tiempo real, facturación electrónica, tesorería y reportes de caja.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Migración -->
+        <div class="faq-category" data-cat="migracion">
+            <div class="faq-category-label">Migración e implementación</div>
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Cómo es el proceso de migración desde otro sistema?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <ul>
+                            <li>Exportas tus datos del sistema anterior en Excel</li>
+                            <li>Nos envías los archivos</li>
+                            <li>Nuestro equipo valida los datos y los importa al sistema</li>
+                            <li>Te acompañamos en la prueba y capacitación del equipo</li>
+                        </ul>
+                        <p><strong>La migración es sin costo adicional y generalmente toma 1-2 semanas.</strong></p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Qué datos puedo importar?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <ul>
+                            <li>Contactos: clientes y proveedores</li>
+                            <li>Catálogos: productos, servicios, categorías</li>
+                            <li>Inventario y listas de precios</li>
+                            <li>Catálogo de cuentas contables y saldos iniciales</li>
+                            <li>Facturas no pagadas y órdenes abiertas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Qué pasa si hay problemas durante la migración?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Nuestro equipo los identifica y resuelve rápidamente, ajusta los datos si es necesario y repite la importación sin costo adicional hasta que todo funcione correctamente.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Soporte -->
+        <div class="faq-category" data-cat="soporte">
+            <div class="faq-category-label">Soporte</div>
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Qué nivel de soporte ofrecen?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Soporte completo e integral, personalizado y no por tickets anónimos:</p>
+                        <ul>
+                            <li><strong>WhatsApp:</strong> +1 (809) 841-2510 (canal principal)</li>
+                            <li><strong>Email:</strong> info@digisol.do</li>
+                            <li><strong>Teléfono / Videollamada:</strong> llamadas por Teams o contacto directo</li>
+                            <li><strong>Presencial:</strong> Bávaro-Punta Cana (o completamente remoto)</li>
+                        </ul>
+                        <p>Disponible <strong>lunes a viernes, 9AM–6PM</strong>. Para emergencias fuera de horario puedes escribir por WhatsApp.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Hacen respaldos de datos?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sí, respaldos automáticos <strong>minuto a minuto</strong> con redundancia en servidores. En caso de cualquier problema, restauramos la información rápidamente.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Qué pasa si se bloquea mi acceso?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Por seguridad, el sistema bloquea el acceso temporalmente tras 5 intentos fallidos de inicio de sesión. Espera 15 minutos e intenta de nuevo, o contáctanos por WhatsApp para resolverlo de inmediato.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Seguridad -->
+        <div class="faq-category" data-cat="seguridad">
+            <div class="faq-category-label">Seguridad y datos</div>
+            <div class="faq-list">
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Cómo están protegidos mis datos?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <ul>
+                            <li>Encriptación en tránsito y en reposo</li>
+                            <li>Respaldos automáticos minuto a minuto</li>
+                            <li>Redundancia en múltiples servidores</li>
+                            <li>Control de acceso y permisos por usuario</li>
+                            <li>Registro de auditoría en datos críticos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Quién puede acceder a mis datos?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Solo los usuarios que crees en el sistema (con permisos específicos). Tus datos son completamente confidenciales.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Digisoft cumple con las normas de la DGII?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sí. Digisoft está desarrollado específicamente para cumplir con todos los requisitos de facturación electrónica y reportería de la DGII: formatos 606, 607 y 608; facturación electrónica validada; y archivos de auditoría. Te acompañamos en el proceso de postulación.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>¿Qué información necesito para crear mi cuenta?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <ul>
+                            <li><strong>Prueba gratuita:</strong> solo tu correo electrónico y nombre de empresa</li>
+                            <li><strong>Versión productiva:</strong> RNC, nombre comercial, dirección, teléfono y email</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CTA -->
+    <section class="faq-page-cta">
+        <div class="container">
+            <h2>¿No encontraste lo que buscabas?</h2>
+            <p>Nuestro equipo está disponible para resolver cualquier duda directamente.</p>
+            <div class="btn-group">
+                <a href="/#contacto" class="cta-button">Solicitar demo gratis</a>
+                <a href="https://wa.me/18098412510" class="btn-outline" target="_blank" rel="noopener noreferrer">Escribir por WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="/images/logo-digisol-full.png" alt="Digisoft" style="height: 35px; margin-bottom: 10px;">
+                        <p>El ERP contable y administrativo diseñado para impulsar a las empresas de República Dominicana.</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Producto</h4>
+                    <ul>
+                        <li><a href="/#modulos">Módulos</a></li>
+                        <li><a href="/#pricing">Precios</a></li>
+                        <li><a href="/faq/">FAQ</a></li>
+                        <li><a href="/#contacto">Solicitar Demo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="https://digisol.do/about/">Acerca de Digisol</a></li>
+                        <li><a href="https://digisol.do/services/">Nuestros Servicios</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="https://digisol.do/contact/">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>info@digisol.do</p>
+                    <p>809 841 2510</p>
+                    <p>Punta Cana, República Dominicana</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Digisoft. Todos los derechos reservados.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/digisol.puntacana/">Facebook</a>
+                    <a href="https://www.instagram.com/digisol.puntacana/">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/18098412510" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <script>
+        // Filtros
+        document.getElementById('faq-filters').addEventListener('click', function(e) {
+            var btn = e.target.closest('.faq-filter-btn');
+            if (!btn) return;
+            document.querySelectorAll('.faq-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            var cat = btn.dataset.cat;
+            document.querySelectorAll('.faq-category').forEach(function(section) {
+                section.classList.toggle('hidden', cat !== 'all' && section.dataset.cat !== cat);
+            });
+        });
+    </script>
+    <script src="/js/main.js" defer></script>
+</body>
+</html>
