@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 mensaje: '[Digisoft — solicitud de prueba gratuita desde digisoft.do]\n\nEnviar al correo indicado la invitación para activar la prueba gratuita del ERP.'
             };
 
-            fetch('https://digisol.do/api/contact', {
+            fetch('https://digisol.do/api/contact/', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
