@@ -303,64 +303,45 @@ if ('IntersectionObserver' in window) {
         });
     }
 
-    // ---- 2. SLIDE-IN CARD (desktop, 50% scroll + 15s en página) ----
+    // ---- 2. SLIDE-IN CARD (desktop, abajo a la derecha — se activa desde el popup) ----
     const card = document.getElementById('slidein-card');
-    if (card && !sessionStorage.getItem('card_dismissed')) {
-        let cardShown = false;
-        let secondsOnPage = 0;
-        const timer = setInterval(function () { secondsOnPage++; }, 1000);
 
-        function tryShowCard() {
-            if (cardShown) return;
-            const pageHeight = document.body.scrollHeight - window.innerHeight;
-            const scrollPct = pageHeight > 0 ? (window.scrollY / pageHeight) * 100 : 0;
-            if (scrollPct >= 50 && secondsOnPage >= 15) {
-                cardShown = true;
-                card.classList.add('visible');
-                clearInterval(timer);
-                track('tarjeta_mostrada');
-            }
-        }
-
-        window.addEventListener('scroll', tryShowCard, { passive: true });
-
-        document.getElementById('card-close')?.addEventListener('click', function () {
-            card.classList.remove('visible');
-            sessionStorage.setItem('card_dismissed', '1');
-            track('tarjeta_cerrada');
-        });
-
-        document.getElementById('card-cta')?.addEventListener('click', function () {
-            track('tarjeta_cta_clic');
-        });
+    function showCard() {
+        if (!card || sessionStorage.getItem('card_dismissed')) return;
+        card.classList.add('visible');
+        track('tarjeta_mostrada');
     }
 
-    // ---- 3. EXIT-INTENT POPUP (desktop, una vez por sesión) ----
+    document.getElementById('card-close')?.addEventListener('click', function () {
+        if (card) card.classList.remove('visible');
+        sessionStorage.setItem('card_dismissed', '1');
+        track('tarjeta_cerrada');
+    });
+
+    document.getElementById('card-cta')?.addEventListener('click', function () {
+        track('tarjeta_cta_clic');
+    });
+
+    // ---- 3. POPUP INMEDIATO (al cargar la página, una vez por sesión) ----
     const popup = document.getElementById('exit-popup');
-    if (popup && window.innerWidth > 768 && !sessionStorage.getItem('popup_shown')) {
+    if (popup && !sessionStorage.getItem('popup_shown')) {
         const popupDaysEl = document.getElementById('popup-days');
         if (popupDaysEl) popupDaysEl.textContent = daysLeft;
 
-        let popupFired = false;
-
-        function firePopup(trigger) {
-            if (popupFired) return;
-            popupFired = true;
-            sessionStorage.setItem('popup_shown', '1');
+        // Mostrar al cargar la página
+        setTimeout(function () {
             popup.classList.add('active');
-            track('popup_mostrado', { disparo: trigger === 'exit_intent' ? 'intento_salida' : 'tiempo_en_pagina' });
+            sessionStorage.setItem('popup_shown', '1');
+            track('popup_mostrado', { disparo: 'carga_pagina' });
+        }, 500);
+
+        function closePopup() {
+            popup.classList.remove('active');
+            // Tras cerrar el popup, mostrar la tarjeta a los 30 segundos (solo desktop)
+            if (window.innerWidth > 768) {
+                setTimeout(showCard, 30000);
+            }
         }
-
-        // Disparo 1: exit intent (ratón sale por la parte superior)
-        document.addEventListener('mouseleave', function (e) {
-            if (e.clientY > 5) return;
-            firePopup('exit_intent');
-        });
-
-        // Disparo 2: tiempo en página (45 segundos sin convertir)
-        setTimeout(function () { firePopup('time_on_page'); }, 45000);
-
-        function closePopup() { popup.classList.remove('active'); }
 
         document.getElementById('exit-popup-close')?.addEventListener('click', function () {
             closePopup();
