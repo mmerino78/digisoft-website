@@ -1,5 +1,15 @@
 /* ===== HERO & PRICING - ESTRATEGIA ESCASEZ + CERCANÍA LOCAL ===== */
 
+/* ----- COUNTDOWN LABEL ----- */
+.countdown-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--secondary);
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+    opacity: 0.85;
+}
+
 /* ----- COUNTDOWN TIMER (estilo Apple/Stripe) ----- */
 .countdown-wrapper {
     background: linear-gradient(135deg, rgba(24, 53, 94, 0.06) 0%, rgba(16, 185, 129, 0.04) 100%);
