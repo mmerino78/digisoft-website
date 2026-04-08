@@ -80,13 +80,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         demoForm.reset();
                         alert('Su mensaje se ha enviado correctamente.');
                         if (typeof gtag === 'function') {
-                            gtag('event', 'demo_request', { form_id: 'demo-form', status: 'success' });
+                            gtag('event', 'formulario_enviado', { empresa: empresa });
                         }
                     } else {
                         btn.textContent = 'Reintentar';
                         alert(result.data.error || 'No se pudo enviar. Prueba por WhatsApp.');
                         if (typeof gtag === 'function') {
-                            gtag('event', 'form_error', { form_id: 'demo-form', error: result.data.error || 'server_error' });
+                            gtag('event', 'formulario_error', { motivo: result.data.error || 'server_error' });
                         }
                     }
                 })
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     btn.textContent = 'Reintentar';
                     alert('No se pudo conectar. Comprueba tu conexión o escríbenos por WhatsApp.');
                     if (typeof gtag === 'function') {
-                        gtag('event', 'form_error', { form_id: 'demo-form', error: 'network_error' });
+                        gtag('event', 'formulario_error', { motivo: 'sin_conexion' });
                     }
                 })
                 .finally(function () {
@@ -166,8 +166,8 @@ function toggleFaq(button) {
     const isOpening = !faqItem.classList.contains('active');
     faqItem.classList.toggle('active');
     if (isOpening && typeof gtag === 'function') {
-        gtag('event', 'faq_open', {
-            question: button.textContent.trim().substring(0, 80)
+        gtag('event', 'faq_abierta', {
+            pregunta: button.textContent.trim().substring(0, 80)
         });
     }
 }
@@ -212,10 +212,10 @@ document.querySelectorAll('.cta-button').forEach(button => {
     button.addEventListener('click', function() {
         if (typeof gtag !== 'function') return;
         const section = this.closest('section')?.id || (this.closest('nav') ? 'nav' : 'unknown');
-        gtag('event', 'cta_click', {
-            button_text: this.innerText.trim(),
-            section: section,
-            destination: this.getAttribute('href') || ''
+        gtag('event', 'boton_cta_clic', {
+            texto: this.innerText.trim(),
+            seccion: section,
+            destino: this.getAttribute('href') || ''
         });
     });
 });
@@ -225,7 +225,7 @@ const waFloat = document.querySelector('.whatsapp-float');
 if (waFloat) {
     waFloat.addEventListener('click', function() {
         if (typeof gtag === 'function') {
-            gtag('event', 'whatsapp_click', { location: 'float_button' });
+            gtag('event', 'whatsapp_clic', { ubicacion: 'boton_flotante' });
         }
     });
 }
@@ -234,7 +234,7 @@ if (waFloat) {
 document.querySelectorAll('.toggle-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         if (typeof gtag === 'function') {
-            gtag('event', 'pricing_toggle', { period: this.dataset.period });
+            gtag('event', 'precios_periodo_cambiado', { periodo: this.dataset.period === 'monthly' ? 'mensual' : 'anual' });
         }
     });
 });
@@ -248,7 +248,7 @@ document.querySelectorAll('.toggle-btn').forEach(btn => {
         firstField.addEventListener(evt, function() {
             if (fired || typeof gtag !== 'function') return;
             fired = true;
-            gtag('event', 'form_start', { form_id: 'demo-form' });
+            gtag('event', 'formulario_iniciado', {});
         }, { once: true });
     });
 })();
@@ -259,7 +259,7 @@ if ('IntersectionObserver' in window) {
         entries.forEach(function(entry) {
             if (!entry.isIntersecting) return;
             if (typeof gtag === 'function') {
-                gtag('event', 'section_view', { section_id: entry.target.id });
+                gtag('event', 'seccion_vista', { seccion: entry.target.id });
             }
             sectionObserver.unobserve(entry.target);
         });
@@ -295,11 +295,11 @@ if ('IntersectionObserver' in window) {
             bar.classList.remove('visible');
             document.body.classList.remove('bar-visible');
             sessionStorage.setItem('bar_dismissed', '1');
-            track('engagement_dismissed', { component: 'bottom_bar' });
+            track('barra_cerrada');
         });
 
         document.getElementById('bar-cta')?.addEventListener('click', function () {
-            track('engagement_cta_click', { component: 'bottom_bar' });
+            track('barra_cta_clic');
         });
     }
 
@@ -318,7 +318,7 @@ if ('IntersectionObserver' in window) {
                 cardShown = true;
                 card.classList.add('visible');
                 clearInterval(timer);
-                track('engagement_shown', { component: 'slide_in_card' });
+                track('tarjeta_mostrada');
             }
         }
 
@@ -327,11 +327,11 @@ if ('IntersectionObserver' in window) {
         document.getElementById('card-close')?.addEventListener('click', function () {
             card.classList.remove('visible');
             sessionStorage.setItem('card_dismissed', '1');
-            track('engagement_dismissed', { component: 'slide_in_card' });
+            track('tarjeta_cerrada');
         });
 
         document.getElementById('card-cta')?.addEventListener('click', function () {
-            track('engagement_cta_click', { component: 'slide_in_card' });
+            track('tarjeta_cta_clic');
         });
     }
 
@@ -348,7 +348,7 @@ if ('IntersectionObserver' in window) {
             popupFired = true;
             sessionStorage.setItem('popup_shown', '1');
             popup.classList.add('active');
-            track('engagement_shown', { component: 'exit_popup', trigger: trigger });
+            track('popup_mostrado', { disparo: trigger === 'exit_intent' ? 'intento_salida' : 'tiempo_en_pagina' });
         }
 
         // Disparo 1: exit intent (ratón sale por la parte superior)
@@ -364,24 +364,24 @@ if ('IntersectionObserver' in window) {
 
         document.getElementById('exit-popup-close')?.addEventListener('click', function () {
             closePopup();
-            track('engagement_dismissed', { component: 'exit_popup' });
+            track('popup_cerrado');
         });
 
         popup.addEventListener('click', function (e) {
             if (e.target === popup) {
                 closePopup();
-                track('engagement_dismissed', { component: 'exit_popup' });
+                track('popup_cerrado');
             }
         });
 
         document.getElementById('popup-cta-wa')?.addEventListener('click', function () {
-            track('engagement_cta_click', { component: 'exit_popup', action: 'whatsapp' });
+            track('popup_cta_whatsapp_clic');
         });
 
         document.getElementById('popup-cta-form')?.addEventListener('click', function () {
             closePopup();
             document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
-            track('engagement_cta_click', { component: 'exit_popup', action: 'form' });
+            track('popup_cta_formulario_clic');
         });
     }
 })();
