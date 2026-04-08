@@ -339,7 +339,7 @@ if ('IntersectionObserver' in window) {
             popup.classList.remove('active');
             // Tras cerrar el popup, mostrar la tarjeta a los 30 segundos (solo desktop)
             if (window.innerWidth > 768) {
-                setTimeout(showCard, 30000);
+                setTimeout(showCard, 10000);
             }
         }
 
