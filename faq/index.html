@@ -777,6 +777,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             document.querySelectorAll('.faq-category').forEach(function(section) {
                 section.classList.toggle('hidden', cat !== 'all' && section.dataset.cat !== cat);
             });
+            if (typeof gtag === 'function') {
+                gtag('event', 'faq_filter_click', { category: cat });
+            }
         });
     </script>
     <script src="/js/main.js" defer></script>

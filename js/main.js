@@ -80,16 +80,22 @@ document.addEventListener('DOMContentLoaded', function () {
                         demoForm.reset();
                         alert('Su mensaje se ha enviado correctamente.');
                         if (typeof gtag === 'function') {
-                            gtag('event', 'demo_request', { event_category: 'form', event_label: 'success' });
+                            gtag('event', 'demo_request', { form_id: 'demo-form', status: 'success' });
                         }
                     } else {
                         btn.textContent = 'Reintentar';
                         alert(result.data.error || 'No se pudo enviar. Prueba por WhatsApp.');
+                        if (typeof gtag === 'function') {
+                            gtag('event', 'form_error', { form_id: 'demo-form', error: result.data.error || 'server_error' });
+                        }
                     }
                 })
                 .catch(function () {
                     btn.textContent = 'Reintentar';
                     alert('No se pudo conectar. Comprueba tu conexión o escríbenos por WhatsApp.');
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'form_error', { form_id: 'demo-form', error: 'network_error' });
+                    }
                 })
                 .finally(function () {
                     setTimeout(function () {
@@ -157,7 +163,13 @@ if (document.getElementById('countdown')) {
 // Toggle FAQ
 function toggleFaq(button) {
     const faqItem = button.parentElement;
+    const isOpening = !faqItem.classList.contains('active');
     faqItem.classList.toggle('active');
+    if (isOpening && typeof gtag === 'function') {
+        gtag('event', 'faq_open', {
+            question: button.textContent.trim().substring(0, 80)
+        });
+    }
 }
 
 // Smooth scroll para links internos
@@ -193,16 +205,71 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Tracking de CTAs (Google Analytics)
+// ===== GOOGLE ANALYTICS TRACKING =====
+
+// 1. CTA clicks — texto del botón + sección de origen + destino
 document.querySelectorAll('.cta-button').forEach(button => {
     button.addEventListener('click', function() {
-        const buttonText = this.innerText;
-        console.log('CTA clicked:', buttonText);
+        if (typeof gtag !== 'function') return;
+        const section = this.closest('section')?.id || (this.closest('nav') ? 'nav' : 'unknown');
+        gtag('event', 'cta_click', {
+            button_text: this.innerText.trim(),
+            section: section,
+            destination: this.getAttribute('href') || ''
+        });
+    });
+});
+
+// 2. WhatsApp float button
+const waFloat = document.querySelector('.whatsapp-float');
+if (waFloat) {
+    waFloat.addEventListener('click', function() {
         if (typeof gtag === 'function') {
-            gtag('event', 'cta_click', { 'button': buttonText });
+            gtag('event', 'whatsapp_click', { location: 'float_button' });
+        }
+    });
+}
+
+// 3. Toggle de precios mensual/anual
+document.querySelectorAll('.toggle-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        if (typeof gtag === 'function') {
+            gtag('event', 'pricing_toggle', { period: this.dataset.period });
         }
     });
 });
+
+// 4. Inicio de formulario (primer foco en cualquier campo)
+(function() {
+    const firstField = document.getElementById('demo-email');
+    if (!firstField) return;
+    let fired = false;
+    ['focus', 'touchstart'].forEach(evt => {
+        firstField.addEventListener(evt, function() {
+            if (fired || typeof gtag !== 'function') return;
+            fired = true;
+            gtag('event', 'form_start', { form_id: 'demo-form' });
+        }, { once: true });
+    });
+})();
+
+// 5. Secciones clave vistas (una vez por carga de página)
+if ('IntersectionObserver' in window) {
+    const sectionObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (!entry.isIntersecting) return;
+            if (typeof gtag === 'function') {
+                gtag('event', 'section_view', { section_id: entry.target.id });
+            }
+            sectionObserver.unobserve(entry.target);
+        });
+    }, { threshold: 0.3 });
+
+    ['modulos', 'pricing', 'ocr-ia', 'contacto'].forEach(function(id) {
+        const el = document.getElementById(id);
+        if (el) sectionObserver.observe(el);
+    });
+}
 
 // Log cuando la página carga
 console.log('✅ Digisoft page loaded successfully');
