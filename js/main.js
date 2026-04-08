@@ -343,13 +343,22 @@ if ('IntersectionObserver' in window) {
 
         let popupFired = false;
 
-        document.addEventListener('mouseleave', function (e) {
-            if (e.clientY > 5 || popupFired) return;
+        function firePopup(trigger) {
+            if (popupFired) return;
             popupFired = true;
             sessionStorage.setItem('popup_shown', '1');
             popup.classList.add('active');
-            track('engagement_shown', { component: 'exit_popup' });
+            track('engagement_shown', { component: 'exit_popup', trigger: trigger });
+        }
+
+        // Disparo 1: exit intent (ratón sale por la parte superior)
+        document.addEventListener('mouseleave', function (e) {
+            if (e.clientY > 5) return;
+            firePopup('exit_intent');
         });
+
+        // Disparo 2: tiempo en página (45 segundos sin convertir)
+        setTimeout(function () { firePopup('time_on_page'); }, 45000);
 
         function closePopup() { popup.classList.remove('active'); }
 
