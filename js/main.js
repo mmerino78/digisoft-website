@@ -271,5 +271,107 @@ if ('IntersectionObserver' in window) {
     });
 }
 
+// ===== ENGAGEMENT: Bottom bar, Slide-in card, Exit-intent popup =====
+(function () {
+    const DEADLINE = new Date('2026-05-15T23:59:59');
+    const daysLeft = Math.max(1, Math.ceil((DEADLINE - new Date()) / (1000 * 60 * 60 * 24)));
+
+    function track(event, params) {
+        if (typeof gtag === 'function') gtag('event', event, params || {});
+    }
+
+    // ---- 1. STICKY BOTTOM BAR ----
+    const bar = document.getElementById('sticky-bottom-bar');
+    if (bar && !sessionStorage.getItem('bar_dismissed')) {
+        const barDaysEl = document.getElementById('bar-days');
+        if (barDaysEl) barDaysEl.textContent = daysLeft;
+
+        setTimeout(function () { bar.classList.add('visible'); }, 4000);
+
+        document.getElementById('bar-close')?.addEventListener('click', function () {
+            bar.classList.remove('visible');
+            sessionStorage.setItem('bar_dismissed', '1');
+            track('engagement_dismissed', { component: 'bottom_bar' });
+        });
+
+        document.getElementById('bar-cta')?.addEventListener('click', function () {
+            track('engagement_cta_click', { component: 'bottom_bar' });
+        });
+    }
+
+    // ---- 2. SLIDE-IN CARD (desktop, 50% scroll + 15s en página) ----
+    const card = document.getElementById('slidein-card');
+    if (card && !sessionStorage.getItem('card_dismissed')) {
+        let cardShown = false;
+        let secondsOnPage = 0;
+        const timer = setInterval(function () { secondsOnPage++; }, 1000);
+
+        function tryShowCard() {
+            if (cardShown) return;
+            const pageHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPct = pageHeight > 0 ? (window.scrollY / pageHeight) * 100 : 0;
+            if (scrollPct >= 50 && secondsOnPage >= 15) {
+                cardShown = true;
+                card.classList.add('visible');
+                clearInterval(timer);
+                track('engagement_shown', { component: 'slide_in_card' });
+            }
+        }
+
+        window.addEventListener('scroll', tryShowCard, { passive: true });
+
+        document.getElementById('card-close')?.addEventListener('click', function () {
+            card.classList.remove('visible');
+            sessionStorage.setItem('card_dismissed', '1');
+            track('engagement_dismissed', { component: 'slide_in_card' });
+        });
+
+        document.getElementById('card-cta')?.addEventListener('click', function () {
+            track('engagement_cta_click', { component: 'slide_in_card' });
+        });
+    }
+
+    // ---- 3. EXIT-INTENT POPUP (desktop, una vez por sesión) ----
+    const popup = document.getElementById('exit-popup');
+    if (popup && window.innerWidth > 768 && !sessionStorage.getItem('popup_shown')) {
+        const popupDaysEl = document.getElementById('popup-days');
+        if (popupDaysEl) popupDaysEl.textContent = daysLeft;
+
+        let popupFired = false;
+
+        document.addEventListener('mouseleave', function (e) {
+            if (e.clientY > 5 || popupFired) return;
+            popupFired = true;
+            sessionStorage.setItem('popup_shown', '1');
+            popup.classList.add('active');
+            track('engagement_shown', { component: 'exit_popup' });
+        });
+
+        function closePopup() { popup.classList.remove('active'); }
+
+        document.getElementById('exit-popup-close')?.addEventListener('click', function () {
+            closePopup();
+            track('engagement_dismissed', { component: 'exit_popup' });
+        });
+
+        popup.addEventListener('click', function (e) {
+            if (e.target === popup) {
+                closePopup();
+                track('engagement_dismissed', { component: 'exit_popup' });
+            }
+        });
+
+        document.getElementById('popup-cta-wa')?.addEventListener('click', function () {
+            track('engagement_cta_click', { component: 'exit_popup', action: 'whatsapp' });
+        });
+
+        document.getElementById('popup-cta-form')?.addEventListener('click', function () {
+            closePopup();
+            document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
+            track('engagement_cta_click', { component: 'exit_popup', action: 'form' });
+        });
+    }
+})();
+
 // Log cuando la página carga
 console.log('✅ Digisoft page loaded successfully');

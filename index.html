@@ -2,16 +2,6 @@
 <html lang="es">
 
 <head>
-    <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-WJ595SLB');</script>
-    <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="canonical" href="https://digisoft.do/">
@@ -25,6 +15,7 @@
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/banner.css">
     <link rel="stylesheet" href="css/hero-pricing-launch.css">
+    <link rel="stylesheet" href="css/engagement.css">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -55,10 +46,6 @@
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJ595SLB" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
     <!-- BARRA SUPERIOR FLOTANTE: Banner + Header -->
     <div class="sticky-top-bar">
         <!-- BANNER DE ANUNCIO - Precio de Lanzamiento -->
@@ -515,6 +502,46 @@
             </div>
         </div>
     </footer>
+
+    <!-- EXIT-INTENT POPUP (desktop) -->
+    <div class="exit-popup-overlay" id="exit-popup" role="dialog" aria-modal="true" aria-label="Oferta especial Digisoft">
+        <div class="exit-popup">
+            <button class="exit-popup__close" id="exit-popup-close" aria-label="Cerrar">×</button>
+            <div class="exit-popup__badge">⚠️ Plazo DGII — 15 de mayo</div>
+            <p class="exit-popup__title">
+                <span id="popup-days" class="exit-popup__days">38</span>
+                días para cumplir con la DGII.<br>¿Listo tu sistema?
+            </p>
+            <p class="exit-popup__subtitle">Incluye acompañamiento en el proceso de certificación ante la DGII como emisor de e-CF. Sin tarjeta de crédito.</p>
+            <div class="exit-popup__actions">
+                <button class="exit-popup__primary" id="popup-cta-form">Solicitar demo gratis</button>
+                <a href="https://wa.me/18098412510" class="exit-popup__secondary" id="popup-cta-wa" target="_blank" rel="noopener noreferrer">
+                    También por WhatsApp →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- STICKY BOTTOM BAR -->
+    <div class="sticky-bottom-bar" id="sticky-bottom-bar" role="banner">
+        <div class="sticky-bottom-bar__text">
+            <span class="sticky-bottom-bar__emoji">⏰</span>
+            <span class="sticky-bottom-bar__msg">
+                <strong><span id="bar-days">38</span> días</strong> para el plazo DGII — facturación electrónica obligatoria
+            </span>
+        </div>
+        <a href="#contacto" class="sticky-bottom-bar__cta" id="bar-cta">Prueba gratis</a>
+        <button class="sticky-bottom-bar__close" id="bar-close" aria-label="Cerrar">×</button>
+    </div>
+
+    <!-- SLIDE-IN CARD (desktop, tras 50% scroll + 15s) -->
+    <div class="slidein-card" id="slidein-card" role="complementary">
+        <button class="slidein-card__close" id="card-close" aria-label="Cerrar">×</button>
+        <span class="slidein-card__icon">🎯</span>
+        <p class="slidein-card__title">14 días gratis, sin compromiso</p>
+        <p class="slidein-card__text">Reportes DGII automáticos, facturación electrónica y acompañamiento en tu certificación como emisor de e-CF.</p>
+        <a href="#contacto" class="slidein-card__cta" id="card-cta">Solicitar demo gratis</a>
+    </div>
 
     <a href="https://wa.me/18098412510" class="whatsapp-float" target="_blank" rel="noopener noreferrer"
         aria-label="Contactar por WhatsApp">
