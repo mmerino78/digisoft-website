@@ -280,16 +280,20 @@ if ('IntersectionObserver' in window) {
         if (typeof gtag === 'function') gtag('event', event, params || {});
     }
 
-    // ---- 1. STICKY BOTTOM BAR ----
+    // ---- 1. STICKY BOTTOM BAR (solo mobile) ----
     const bar = document.getElementById('sticky-bottom-bar');
-    if (bar && !sessionStorage.getItem('bar_dismissed')) {
+    if (bar && window.innerWidth <= 768 && !sessionStorage.getItem('bar_dismissed')) {
         const barDaysEl = document.getElementById('bar-days');
         if (barDaysEl) barDaysEl.textContent = daysLeft;
 
-        setTimeout(function () { bar.classList.add('visible'); }, 4000);
+        setTimeout(function () {
+            bar.classList.add('visible');
+            document.body.classList.add('bar-visible');
+        }, 4000);
 
         document.getElementById('bar-close')?.addEventListener('click', function () {
             bar.classList.remove('visible');
+            document.body.classList.remove('bar-visible');
             sessionStorage.setItem('bar_dismissed', '1');
             track('engagement_dismissed', { component: 'bottom_bar' });
         });

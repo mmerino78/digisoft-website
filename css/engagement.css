@@ -233,3 +233,9 @@
     .slidein-card { display: none; }
     .sticky-bottom-bar__msg { font-size: 12px; }
 }
+
+/* WhatsApp sube cuando la barra inferior está visible */
+body.bar-visible .whatsapp-float {
+    bottom: 80px;
+    transition: bottom 0.4s ease, transform 0.2s, box-shadow 0.2s;
+}
