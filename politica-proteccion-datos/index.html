@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://digisoft.do/politica-proteccion-datos/">
+    <meta name="description" content="Política de Protección de Datos de DIGISOL SRL — Sistema Digisoft ERP. Cumplimiento de la Ley Núm. 172-13 de la República Dominicana.">
+    <title>Política de Protección de Datos | Digisoft ERP - DIGISOL SRL</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Digisoft", "item": "https://digisoft.do/"},
+        {"@type": "ListItem", "position": 2, "name": "Política de Protección de Datos", "item": "https://digisoft.do/politica-proteccion-datos/"}
+      ]
+    }
+    </script>
+    <style>
+        /* Hero oscuro para página legal */
+        .legal-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #0f2340 100%);
+            padding: 80px 0 60px;
+            color: #fff;
+            text-align: center;
+        }
+        .legal-hero h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #fff;
+        }
+        .legal-hero .legal-meta {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 760px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        .legal-hero .legal-meta span {
+            display: inline-block;
+            margin: 0 8px;
+        }
+        .legal-hero .legal-meta strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Cuerpo del documento */
+        .legal-body {
+            background: #fff;
+            padding: 48px 0 80px;
+        }
+        .legal-body .container {
+            max-width: 900px;
+        }
+        .legal-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 32px;
+            transition: color 0.18s;
+        }
+        .legal-back:hover { color: var(--secondary); }
+
+        .legal-section {
+            margin-bottom: 40px;
+        }
+        .legal-section h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+        .legal-section h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 18px 0 8px;
+        }
+        .legal-section p {
+            color: var(--text-light);
+            line-height: 1.75;
+            margin-bottom: 12px;
+        }
+        .legal-section ul {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin: 8px 0 12px 20px;
+        }
+        .legal-section ul li { margin-bottom: 6px; }
+        .legal-section strong { color: var(--text); font-weight: 600; }
+        .legal-section a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+        .legal-section a:hover { color: var(--secondary); }
+
+        /* Principios en chips */
+        .legal-principles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .legal-principle {
+            background: #EEF2F8;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: 9999px;
+            border: 1.5px solid var(--border);
+        }
+
+        /* Tablas */
+        .legal-table-wrap {
+            overflow-x: auto;
+            margin: 16px 0 8px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        .legal-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+        .legal-table thead th {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 14px;
+            font-size: 0.9rem;
+            letter-spacing: 0.02em;
+        }
+        .legal-table tbody td {
+            padding: 12px 14px;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+            line-height: 1.6;
+            vertical-align: top;
+        }
+        .legal-table tbody tr:nth-child(even) td {
+            background: #F8FAFC;
+        }
+        .legal-table tbody td:first-child {
+            color: var(--text);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* Contacto */
+        .legal-contact {
+            background: #F8FAFC;
+            border-left: 4px solid var(--secondary);
+            padding: 20px 24px;
+            border-radius: 6px;
+            margin-top: 12px;
+        }
+        .legal-contact p {
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+        .legal-contact p:last-child { margin-bottom: 0; }
+
+        @media (max-width: 640px) {
+            .legal-hero { padding: 60px 0 44px; }
+            .legal-hero h1 { font-size: 1.8rem; }
+            .legal-hero .legal-meta span { display: block; margin: 4px 0; }
+            .legal-section h2 { font-size: 1.2rem; }
+            .legal-table { font-size: 0.85rem; }
+            .legal-table thead th,
+            .legal-table tbody td { padding: 10px; }
+            .legal-table tbody td:first-child { white-space: normal; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sticky-top-bar">
+        <header>
+            <div class="container">
+                <nav>
+                    <a href="/" class="logo">
+                        <img src="/images/logo-digisol-full.png" alt="Digisoft Logo" style="height: 40px; vertical-align: middle;">
+                    </a>
+                    <button class="hamburger" aria-label="Menú">
+                        <span></span><span></span><span></span>
+                    </button>
+                    <ul class="nav-links">
+                        <li><a href="/#inicio">Inicio</a></li>
+                        <li><a href="/#modulos">Módulos</a></li>
+                        <li><a href="/#pricing">Precios</a></li>
+                        <li><a href="/faq/">FAQ</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/#contacto" class="cta-button">Prueba Gratis</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+    </div>
+
+    <section class="legal-hero">
+        <div class="container">
+            <h1>Política de Protección de Datos</h1>
+            <p class="legal-meta">
+                <span><strong>Organización:</strong> DIGISOL SRL</span>·
+                <span><strong>Sistema:</strong> Digisoft ERP</span>·
+                <span><strong>Ley:</strong> Núm. 172-13</span>·
+                <span><strong>Versión:</strong> 1.0 · Abril 2026</span>
+            </p>
+        </div>
+    </section>
+
+    <section class="legal-body">
+        <div class="container">
+
+            <a href="/" class="legal-back">← Volver al inicio</a>
+
+            <div class="legal-section">
+                <h2>1. Objetivo y Alcance</h2>
+                <p>
+                    Este documento establece los principios y medidas que <strong>DIGISOL SRL</strong> aplica para el
+                    tratamiento y protección de datos personales de los contribuyentes que usan el sistema
+                    <strong>Digisoft ERP</strong>, conforme a la <strong>Ley Núm. 172-13</strong> sobre Protección de
+                    Datos de Carácter Personal de la República Dominicana.
+                </p>
+                <p>Aplica al tratamiento de las siguientes categorías de información:</p>
+                <ul>
+                    <li>RNC y datos fiscales del contribuyente</li>
+                    <li>Datos de contacto corporativos</li>
+                    <li>Datos de transacciones y comprobantes fiscales electrónicos (e-CF)</li>
+                </ul>
+                <p>
+                    Documento público disponible en:
+                    <a href="https://www.digisoft.do/politica-proteccion-datos/">www.digisoft.do/politica-proteccion-datos</a>
+                </p>
+            </div>
+
+            <div class="legal-section">
+                <h2>2. Datos que Tratamos</h2>
+                <div class="legal-table-wrap">
+                    <table class="legal-table">
+                        <thead>
+                            <tr>
+                                <th>Categoría</th>
+                                <th>Datos</th>
+                                <th>Finalidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Identificación fiscal</td>
+                                <td>RNC, razón social</td>
+                                <td>Emisión y validación de e-CF</td>
+                            </tr>
+                            <tr>
+                                <td>Datos de contacto</td>
+                                <td>Email, teléfono, dirección</td>
+                                <td>Comunicaciones del servicio</td>
+                            </tr>
+                            <tr>
+                                <td>Datos de transacciones</td>
+                                <td>Montos, fechas, comprobantes</td>
+                                <td>Obligación legal fiscal — Código Tributario</td>
+                            </tr>
+                            <tr>
+                                <td>Datos de acceso</td>
+                                <td>Credenciales, logs de sesión</td>
+                                <td>Seguridad y control de acceso</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="legal-section">
+                <h2>3. Principios de Tratamiento</h2>
+                <p>Todo tratamiento de datos personales por parte de DIGISOL SRL se rige por los siguientes principios:</p>
+                <div class="legal-principles">
+                    <span class="legal-principle">Licitud</span>
+                    <span class="legal-principle">Finalidad</span>
+                    <span class="legal-principle">Proporcionalidad</span>
+                    <span class="legal-principle">Veracidad</span>
+                    <span class="legal-principle">Seguridad</span>
+                    <span class="legal-principle">Confidencialidad</span>
+                </div>
+            </div>
+
+            <div class="legal-section">
+                <h2>4. Derechos del Titular</h2>
+                <p>
+                    El titular de los datos puede ejercer los derechos reconocidos por la Ley Núm. 172-13, conocidos
+                    como derechos <strong>ARCO</strong>:
+                </p>
+                <div class="legal-table-wrap">
+                    <table class="legal-table">
+                        <thead>
+                            <tr>
+                                <th>Derecho</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Acceso</td>
+                                <td>Obtener información sobre los datos personales que tratamos sobre el titular.</td>
+                            </tr>
+                            <tr>
+                                <td>Rectificación</td>
+                                <td>Solicitar la corrección de datos inexactos o incompletos.</td>
+                            </tr>
+                            <tr>
+                                <td>Cancelación</td>
+                                <td>Solicitar la eliminación de datos cuando ya no sean necesarios o se retire el consentimiento, sin perjuicio de las obligaciones legales de conservación.</td>
+                            </tr>
+                            <tr>
+                                <td>Oposición</td>
+                                <td>Oponerse al tratamiento de sus datos en los supuestos previstos por la ley.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    Para ejercer estos derechos, escribir a
+                    <a href="mailto:info@digisol.do">info@digisol.do</a>.
+                </p>
+            </div>
+
+            <div class="legal-section">
+                <h2>5. Conservación de Datos</h2>
+                <ul>
+                    <li><strong>e-CF:</strong> mínimo 10 años (Código Tributario Art. 50).</li>
+                    <li><strong>Contribuyentes activos:</strong> durante toda la duración del contrato más el período legal aplicable.</li>
+                    <li><strong>Logs de auditoría:</strong> 10 años para datos fiscales; 30 días para logs operacionales.</li>
+                    <li><strong>Datos de sesión:</strong> eliminados al expirar la sesión del usuario.</li>
+                </ul>
+            </div>
+
+            <div class="legal-section">
+                <h2>6. Transferencia de Datos</h2>
+                <p>Los datos tratados por Digisoft solo se transfieren en los siguientes supuestos:</p>
+                <ul>
+                    <li><strong>Dirección General de Impuestos Internos (DGII):</strong> por obligación legal fiscal.</li>
+                    <li><strong>Proveedores de infraestructura en la nube:</strong> únicamente como encargados del tratamiento, bajo acuerdos de confidencialidad y medidas contractuales de seguridad.</li>
+                </ul>
+                <p>
+                    <strong>No se realizan transferencias internacionales de datos</strong> fuera de los supuestos
+                    mencionados.
+                </p>
+            </div>
+
+            <div class="legal-section">
+                <h2>7. Seguridad</h2>
+                <p>DIGISOL SRL aplica medidas técnicas y organizativas adecuadas para proteger los datos personales:</p>
+                <ul>
+                    <li>Cifrado en tránsito con <strong>TLS 1.2 / 1.3</strong>.</li>
+                    <li>Control de acceso por roles y mínimo privilegio.</li>
+                    <li>Mecanismos de autenticación segura.</li>
+                    <li>Respaldos (backups) diarios con redundancia.</li>
+                    <li>Monitoreo continuo de la plataforma y de eventos de seguridad.</li>
+                </ul>
+                <p>Detalles adicionales se describen en la <strong>Política de Seguridad (Anexo 1.1)</strong>.</p>
+            </div>
+
+            <div class="legal-section">
+                <h2>8. Contacto</h2>
+                <div class="legal-contact">
+                    <p><strong>Sitio web:</strong> <a href="https://www.digisol.do">www.digisol.do</a></p>
+                    <p><strong>Privacidad:</strong> <a href="mailto:info@digisol.do">info@digisol.do</a></p>
+                    <p><strong>Esta política:</strong> <a href="https://www.digisoft.do/politica-proteccion-datos/">www.digisoft.do/politica-proteccion-datos</a></p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="/images/logo-digisol-full.png" alt="Digisoft" style="height: 35px; margin-bottom: 10px;">
+                        <p>El ERP contable y administrativo diseñado para impulsar a las empresas de República Dominicana.</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Producto</h4>
+                    <ul>
+                        <li><a href="/#modulos">Módulos</a></li>
+                        <li><a href="/#pricing">Precios</a></li>
+                        <li><a href="/faq/">FAQ</a></li>
+                        <li><a href="/#contacto">Solicitar Demo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="https://digisol.do/about/">Acerca de Digisol</a></li>
+                        <li><a href="https://digisol.do/services/">Nuestros Servicios</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="https://digisol.do/contact/">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>info@digisol.do</p>
+                    <p>809 841 2510</p>
+                    <p>Punta Cana, República Dominicana</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Digisoft. Todos los derechos reservados. · <a href="/politica-proteccion-datos/">Política de Protección de Datos</a></p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/digisol.puntacana/">Facebook</a>
+                    <a href="https://www.instagram.com/digisol.puntacana/">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/18098412510" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <script src="/js/main.js" defer></script>
+</body>
+</html>
