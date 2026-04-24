@@ -761,6 +761,18 @@ footer {
     font-size: 14px;
 }
 
+.footer-bottom a,
+.footer-bottom a:visited {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+}
+
+.footer-bottom a:hover {
+    color: #ffffff;
+}
+
 .social-links {
     display: flex;
     gap: 20px;
