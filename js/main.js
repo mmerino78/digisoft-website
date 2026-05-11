@@ -138,6 +138,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         });
     }
+
+    // Track field abandonment: último campo antes de cerrar/navegar fuera sin enviar
+    if (demoForm) {
+        var _lastField = null;
+        demoForm.querySelectorAll('input').forEach(function(f) {
+            f.addEventListener('focus', function() { _lastField = this.id; });
+        });
+        demoForm.addEventListener('submit', function() { _lastField = null; });
+        window.addEventListener('beforeunload', function() {
+            if (_lastField && typeof trackGA === 'function') trackGA('field_abandoned', { field: _lastField });
+        });
+    }
 });
 
 // Toggle entre precios mensual y anual
@@ -229,9 +241,16 @@ if (waFloat) {
 }
 
 // 3. Toggle de precios mensual/anual
+var _pricingToggleCount = parseInt(sessionStorage.getItem('_ptc') || '0', 10);
 document.querySelectorAll('.toggle-btn').forEach(btn => {
     btn.addEventListener('click', function() {
-        trackGA('precios_periodo_cambiado', { periodo: this.dataset.period === 'monthly' ? 'mensual' : 'anual' });
+        var periodo = this.dataset.period === 'monthly' ? 'mensual' : 'anual';
+        _pricingToggleCount++;
+        sessionStorage.setItem('_ptc', _pricingToggleCount);
+        trackGA('precios_periodo_cambiado', { periodo: periodo, toggle_count: _pricingToggleCount });
+        if (_pricingToggleCount === 3 || _pricingToggleCount === 6) {
+            trackGA('pricing_toggle_multiple', { count: _pricingToggleCount });
+        }
     });
 });
 
@@ -333,6 +352,17 @@ if ('IntersectionObserver' in window) {
     }, { passive: true });
 })();
 
+// 9. Clics a enlaces externos
+document.querySelectorAll('a[href^="http"]').forEach(function(link) {
+    if (link.hostname === window.location.hostname) return;
+    link.addEventListener('click', function() {
+        trackGA('outbound_link_click', {
+            dominio: link.hostname,
+            url: link.href.substring(0, 200)
+        });
+    });
+});
+
 // ===== ENGAGEMENT: Bottom bar, Slide-in card, Exit-intent popup =====
 (function () {
     function track(event, params) {
@@ -418,6 +448,17 @@ if ('IntersectionObserver' in window) {
         });
     }
 })();
+
+// Errores JS en producción
+window.addEventListener('error', function(e) {
+    if (e.error && typeof trackGA === 'function') {
+        trackGA('js_error', {
+            message: (e.error.message || '').substring(0, 150),
+            file: (e.filename || '').split('/').pop(),
+            line: e.lineno || 0
+        });
+    }
+});
 
 // Log cuando la página carga
 console.log('✅ Digisoft page loaded successfully');
