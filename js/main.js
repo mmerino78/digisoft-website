@@ -391,7 +391,7 @@ if ('IntersectionObserver' in window) {
         function closePopup() {
             popup.classList.remove('active');
             if (window.innerWidth > 768) {
-                setTimeout(showCard, 10000);
+                setTimeout(showCard, 14000);
             }
         }
 
