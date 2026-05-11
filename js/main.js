@@ -15,6 +15,45 @@
     gtag('config', 'G-R5007WS0J2');
 })();
 
+// UTM → Google Analytics: hereda fuente de tráfico en toda la sesión
+(function() {
+    var params = new URLSearchParams(window.location.search);
+    var source = params.get('utm_source');
+    var medium = params.get('utm_medium');
+    var campaign = params.get('utm_campaign');
+    if (source || medium || campaign) {
+        if (source) sessionStorage.setItem('utm_source', source);
+        if (medium) sessionStorage.setItem('utm_medium', medium);
+        if (campaign) sessionStorage.setItem('utm_campaign', campaign);
+    }
+    var storedSource = sessionStorage.getItem('utm_source');
+    var storedMedium = sessionStorage.getItem('utm_medium');
+    var storedCampaign = sessionStorage.getItem('utm_campaign');
+    if (storedSource || storedMedium || storedCampaign) {
+        window._gaTraffic = {
+            source: storedSource || '',
+            medium: storedMedium || '',
+            campaign: storedCampaign || ''
+        };
+    }
+})();
+
+// Helper global: adjunta fuente de tráfico a todos los eventos GA4
+function trackGA(event, params) {
+    if (typeof gtag !== 'function') return;
+    var traffic = window._gaTraffic || {};
+    var merged = {};
+    if (params) {
+        for (var k in params) {
+            if (params.hasOwnProperty(k)) merged[k] = params[k];
+        }
+    }
+    merged.source = traffic.source || '';
+    merged.medium = traffic.medium || '';
+    merged.campaign = traffic.campaign || '';
+    gtag('event', event, merged);
+}
+
 // Menú móvil (hamburger)
 document.addEventListener('DOMContentLoaded', function () {
     const hamburger = document.querySelector('.hamburger');
@@ -79,23 +118,17 @@ document.addEventListener('DOMContentLoaded', function () {
                         btn.textContent = '¡Enviado!';
                         demoForm.reset();
                         alert('Su mensaje se ha enviado correctamente.');
-                        if (typeof gtag === 'function') {
-                            gtag('event', 'formulario_enviado', { empresa: empresa });
-                        }
+                        trackGA('formulario_enviado', { empresa: empresa });
                     } else {
                         btn.textContent = 'Reintentar';
                         alert(result.data.error || 'No se pudo enviar. Prueba por WhatsApp.');
-                        if (typeof gtag === 'function') {
-                            gtag('event', 'formulario_error', { motivo: result.data.error || 'server_error' });
-                        }
+                        trackGA('formulario_error', { motivo: result.data.error || 'server_error' });
                     }
                 })
                 .catch(function () {
                     btn.textContent = 'Reintentar';
                     alert('No se pudo conectar. Comprueba tu conexión o escríbenos por WhatsApp.');
-                    if (typeof gtag === 'function') {
-                        gtag('event', 'formulario_error', { motivo: 'sin_conexion' });
-                    }
+                    trackGA('formulario_error', { motivo: 'sin_conexion' });
                 })
                 .finally(function () {
                     setTimeout(function () {
@@ -136,11 +169,7 @@ function toggleFaq(button) {
     const faqItem = button.parentElement;
     const isOpening = !faqItem.classList.contains('active');
     faqItem.classList.toggle('active');
-    if (isOpening && typeof gtag === 'function') {
-        gtag('event', 'faq_abierta', {
-            pregunta: button.textContent.trim().substring(0, 80)
-        });
-    }
+    if (isOpening) trackGA('faq_abierta', { pregunta: button.textContent.trim().substring(0, 80) });
 }
 
 // Smooth scroll para links internos
@@ -183,7 +212,7 @@ document.querySelectorAll('.cta-button').forEach(button => {
     button.addEventListener('click', function() {
         if (typeof gtag !== 'function') return;
         const section = this.closest('section')?.id || (this.closest('nav') ? 'nav' : 'unknown');
-        gtag('event', 'boton_cta_clic', {
+        trackGA('boton_cta_clic', {
             texto: this.innerText.trim(),
             seccion: section,
             destino: this.getAttribute('href') || ''
@@ -195,18 +224,14 @@ document.querySelectorAll('.cta-button').forEach(button => {
 const waFloat = document.querySelector('.whatsapp-float');
 if (waFloat) {
     waFloat.addEventListener('click', function() {
-        if (typeof gtag === 'function') {
-            gtag('event', 'whatsapp_clic', { ubicacion: 'boton_flotante' });
-        }
+        trackGA('whatsapp_clic', { ubicacion: 'boton_flotante' });
     });
 }
 
 // 3. Toggle de precios mensual/anual
 document.querySelectorAll('.toggle-btn').forEach(btn => {
     btn.addEventListener('click', function() {
-        if (typeof gtag === 'function') {
-            gtag('event', 'precios_periodo_cambiado', { periodo: this.dataset.period === 'monthly' ? 'mensual' : 'anual' });
-        }
+        trackGA('precios_periodo_cambiado', { periodo: this.dataset.period === 'monthly' ? 'mensual' : 'anual' });
     });
 });
 
@@ -217,9 +242,9 @@ document.querySelectorAll('.toggle-btn').forEach(btn => {
     let fired = false;
     ['focus', 'touchstart'].forEach(evt => {
         firstField.addEventListener(evt, function() {
-            if (fired || typeof gtag !== 'function') return;
+            if (fired) return;
             fired = true;
-            gtag('event', 'formulario_iniciado', {});
+            trackGA('formulario_iniciado', {});
         }, { once: true });
     });
 })();
@@ -229,9 +254,7 @@ if ('IntersectionObserver' in window) {
     const sectionObserver = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
             if (!entry.isIntersecting) return;
-            if (typeof gtag === 'function') {
-                gtag('event', 'seccion_vista', { seccion: entry.target.id });
-            }
+            trackGA('seccion_vista', { seccion: entry.target.id });
             sectionObserver.unobserve(entry.target);
         });
     }, { threshold: 0.3 });
@@ -242,10 +265,78 @@ if ('IntersectionObserver' in window) {
     });
 }
 
+// 6. Navegación del menú principal
+document.querySelectorAll('.nav-links a').forEach(function(link) {
+    link.addEventListener('click', function() {
+        trackGA('nav_click', {
+            texto: this.innerText.trim(),
+            destino: this.getAttribute('href') || ''
+        });
+    });
+});
+
+// 7. Tarjetas de precios observadas (intención real — espera 2s de visibilidad)
+if ('IntersectionObserver' in window) {
+    var pricingObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (!entry.isIntersecting) return;
+            var card = entry.target;
+            var timer = setTimeout(function() {
+                var planName = (card.querySelector('h3') && card.querySelector('h3').innerText.trim()) || 'desconocido';
+                trackGA('pricing_card_view', { plan: planName });
+                pricingObserver.unobserve(card);
+            }, 2000);
+            card._pricingTimer = timer;
+            // Si el usuario scrollea fuera, cancelar el timer
+            var cancelObserver = new IntersectionObserver(function(leaveEntries) {
+                leaveEntries.forEach(function(leaveEntry) {
+                    if (!leaveEntry.isIntersecting && card._pricingTimer) {
+                        clearTimeout(card._pricingTimer);
+                        card._pricingTimer = null;
+                        cancelObserver.unobserve(card);
+                    }
+                });
+            }, { threshold: 0 });
+            cancelObserver.observe(card);
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.pricing-card').forEach(function(card) {
+        pricingObserver.observe(card);
+    });
+}
+
+// 8. Profundidad de scroll (25%, 50%, 75%, 100%)
+(function() {
+    var marks = [25, 50, 75, 100];
+    var fired = {};
+    var ticking = false;
+    function docHeight() {
+        return Math.max(document.body.scrollHeight, document.body.offsetHeight,
+            document.documentElement.clientHeight, document.documentElement.scrollHeight,
+            document.documentElement.offsetHeight);
+    }
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                var scrollPct = Math.round((window.scrollY + window.innerHeight) / docHeight() * 100);
+                marks.forEach(function(m) {
+                    if (scrollPct >= m && !fired[m]) {
+                        fired[m] = true;
+                        trackGA('scroll_depth', { depth: m, page: window.location.pathname });
+                    }
+                });
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+})();
+
 // ===== ENGAGEMENT: Bottom bar, Slide-in card, Exit-intent popup =====
 (function () {
     function track(event, params) {
-        if (typeof gtag === 'function') gtag('event', event, params || {});
+        trackGA(event, params);
     }
 
     // ---- 1. STICKY BOTTOM BAR (solo mobile) ----
@@ -254,6 +345,7 @@ if ('IntersectionObserver' in window) {
         setTimeout(function () {
             bar.classList.add('visible');
             document.body.classList.add('bar-visible');
+            track('barra_mostrada');
         }, 4000);
 
         document.getElementById('bar-close')?.addEventListener('click', function () {

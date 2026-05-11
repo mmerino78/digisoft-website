@@ -1005,16 +1005,26 @@
 
             setTimeout(function() {
                 card.classList.add('visible');
+                if (typeof trackGA === 'function') trackGA('cont_slidein_mostrada');
             }, 6000);
 
             document.getElementById('cont-slidein-close')?.addEventListener('click', function() {
                 card.classList.remove('visible');
                 sessionStorage.setItem('cont_slidein_dismissed', '1');
+                if (typeof trackGA === 'function') trackGA('cont_slidein_cerrada');
             });
 
             document.getElementById('cont-slidein-cta')?.addEventListener('click', function() {
                 sessionStorage.setItem('cont_slidein_dismissed', '1');
+                if (typeof trackGA === 'function') trackGA('cont_slidein_cta_clic');
             });
+
+            var waLink = card.querySelector('.cont-slidein__wa');
+            if (waLink) {
+                waLink.addEventListener('click', function() {
+                    if (typeof trackGA === 'function') trackGA('cont_slidein_whatsapp_clic');
+                });
+            }
         })();
     </script>
 </body>
