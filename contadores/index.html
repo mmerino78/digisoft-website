@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://digisoft.do/contadores/">
+    <meta name="description" content="Digisoft para contadores en República Dominicana: gestiona múltiples clientes, genera reportes 606/607/608 automáticos y facturación electrónica e-CF. Hecho en RD.">
+    <title>Digisoft para Contadores | ERP Multi-empresa en República Dominicana</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/blog.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Digisoft", "item": "https://digisoft.do/"},
+        {"@type": "ListItem", "position": 2, "name": "Contadores", "item": "https://digisoft.do/contadores/"}
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"¿Puedo gestionar varios clientes desde una misma cuenta de Digisoft?","acceptedAnswer":{"@type":"Answer","text":"Sí. Digisoft permite manejar múltiples empresas desde un solo login. Puedes alternar entre clientes, generar reportes individuales y tener toda la información centralizada sin necesidad de múltiples cuentas ni cierres de sesión."}},
+        {"@type":"Question","name":"¿Digisoft genera los reportes 606, 607 y 608 automáticamente?","acceptedAnswer":{"@type":"Answer","text":"Sí. Los reportes 606 (compras), 607 (ventas) y 608 (anulaciones) se generan automáticamente con 1 clic, listos para cargar en la Oficina Virtual de la DGII. Sin errores de digitación ni cálculos manuales."}},
+        {"@type":"Question","name":"¿La facturación electrónica e-CF está incluida?","acceptedAnswer":{"@type":"Answer","text":"Sí, completamente. La facturación electrónica está integrada en todos los planes. Genera e-CF válidos ante la DGII y recibe acompañamiento en tu proceso de certificación como emisor."}},
+        {"@type":"Question","name":"¿Cómo es el proceso de migración de datos de mis clientes?","acceptedAnswer":{"@type":"Answer","text":"Exportas los datos desde tu sistema actual en Excel, nos los envías y nuestro equipo los valida e importa. La migración es sin costo adicional y generalmente toma de 1 a 2 semanas."}},
+        {"@type":"Question","name":"¿Ofrecen capacitación para mi equipo o para mis clientes?","acceptedAnswer":{"@type":"Answer","text":"Sí. Incluimos acompañamiento y capacitación inicial para que tanto tú como tus clientes puedan usar el sistema sin problemas. Soporte vía WhatsApp, email y videollamada en horario local."}}
+      ]
+    }
+    </script>
+    <style>
+        /* ===== CONTADORES LANDING ===== */
+        .cont-hero {
+            padding: 100px 0 80px;
+            background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .cont-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(24,53,94,0.03) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .cont-hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .cont-hero h1 {
+            font-size: 44px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+        .cont-hero h1 .highlight {
+            color: var(--secondary);
+        }
+        .cont-hero .subtitle {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+        .cont-benefits {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        .cont-benefits li {
+            font-size: 16px;
+            color: var(--text);
+            margin-bottom: 14px;
+            padding-left: 32px;
+            position: relative;
+        }
+        .cont-benefits li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 20px;
+        }
+        .cont-hero-visual {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(24,53,94,0.08);
+            border: 1px solid var(--border);
+        }
+        .cont-hero-visual .mock-company {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: #F8FAFC;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--secondary);
+            transition: all 0.2s;
+        }
+        .cont-hero-visual .mock-company:last-child {
+            margin-bottom: 0;
+        }
+        .cont-hero-visual .mock-company .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+        .cont-hero-visual .mock-company .name {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text);
+        }
+        .cont-hero-visual .mock-company .status {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-left: auto;
+        }
+        .cont-hero-visual .mock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .cont-hero-visual .mock-header h4 {
+            font-size: 16px;
+            color: var(--primary);
+        }
+        .cont-hero-visual .mock-header span {
+            font-size: 13px;
+            color: var(--text-light);
+            background: #F1F5F9;
+            padding: 4px 12px;
+            border-radius: 9999px;
+        }
+
+        /* ===== DOLOR / PROBLEMA ===== */
+        .cont-pain {
+            padding: 80px 0;
+            background: white;
+        }
+        .cont-pain h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+        .cont-pain .section-subtitle {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+        .cont-pain-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .cont-pain-card {
+            padding: 36px 28px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-align: center;
+            background: #FAFBFC;
+            transition: all 0.3s;
+        }
+        .cont-pain-card:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 8px 20px rgba(255,107,53,0.08);
+        }
+        .cont-pain-card .icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .cont-pain-card h3 {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+        .cont-pain-card p {
+            color: var(--text-light);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* ===== SOLUCIÓN ===== */
+        .cont-solution {
+            padding: 80px 0;
+            background: #F8FAFC;
+        }
+        .cont-solution h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+        .cont-solution .section-subtitle {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+        .cont-solution-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        .cont-solution-card {
+            display: flex;
+            gap: 20px;
+            padding: 32px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+        .cont-solution-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255,107,53,0.08);
+        }
+        .cont-solution-card .s-icon {
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--secondary), #ff8a5c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+        .cont-solution-card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        .cont-solution-card p {
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* ===== MULTI-EMPRESA DESTAQUE ===== */
+        .cont-multi {
+            padding: 80px 0;
+            background: white;
+        }
+        .cont-multi-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .cont-multi h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .cont-multi p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .cont-multi-list {
+            list-style: none;
+        }
+        .cont-multi-list li {
+            padding-left: 28px;
+            position: relative;
+            margin-bottom: 14px;
+            color: var(--text);
+            font-weight: 500;
+        }
+        .cont-multi-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        .cont-multi-visual {
+            background: linear-gradient(135deg, #18355E 0%, #1e4a7a 100%);
+            border-radius: 16px;
+            padding: 40px;
+            color: white;
+        }
+        .cont-multi-visual .mv-header {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            opacity: 0.7;
+            margin-bottom: 24px;
+        }
+        .cont-multi-visual .mv-company {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .cont-multi-visual .mv-company:last-child {
+            margin-bottom: 0;
+        }
+        .cont-multi-visual .mv-company .badge {
+            background: var(--accent);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 9999px;
+            margin-left: auto;
+        }
+        .cont-multi-visual .mv-company .mv-name {
+            font-weight: 600;
+        }
+        .cont-multi-visual .mv-company .mv-docs {
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        /* ===== POR QUÉ DIGISOFT ===== */
+        .cont-why {
+            padding: 80px 0;
+            background: #F8FAFC;
+        }
+        .cont-why h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+        }
+        .cont-why-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .cont-why-card {
+            text-align: center;
+            padding: 32px 20px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .cont-why-card .w-icon {
+            font-size: 36px;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .cont-why-card h3 {
+            font-size: 17px;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+        .cont-why-card p {
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ===== CTA ===== */
+        .cont-cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #18355E 0%, #1e4a7a 100%);
+            text-align: center;
+            color: white;
+        }
+        .cont-cta h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+        .cont-cta p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 36px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cont-cta .cta-button {
+            background: var(--secondary);
+            color: white;
+            padding: 16px 48px;
+            font-size: 18px;
+        }
+        .cont-cta .cta-button:hover {
+            background: #e55a2b;
+        }
+        .cont-cta .small-text {
+            color: rgba(255,255,255,0.6);
+            margin-top: 16px;
+            font-size: 14px;
+        }
+
+        /* ===== FAQ ===== */
+        .cont-faq {
+            padding: 80px 0;
+            background: white;
+        }
+        .cont-faq h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+        }
+        .cont-faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cont-faq-item {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .cont-faq-question {
+            width: 100%;
+            padding: 18px 24px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+            font-family: inherit;
+            text-align: left;
+            transition: background 0.2s;
+        }
+        .cont-faq-question:hover {
+            background: #F8FAFC;
+        }
+        .cont-faq-question svg {
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+        .cont-faq-question.active svg {
+            transform: rotate(180deg);
+        }
+        .cont-faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 24px;
+        }
+        .cont-faq-answer.open {
+            max-height: 400px;
+            padding: 0 24px 20px;
+        }
+        .cont-faq-answer p {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+        .cont-faq-answer ul {
+            margin: 8px 0 8px 20px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* ===== SLIDE-IN CARD PARA CONTADORES ===== */
+        .cont-slidein {
+            position: fixed;
+            bottom: 100px;
+            right: 24px;
+            width: 360px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 12px 40px rgba(24,53,94,0.18);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--secondary);
+            z-index: 999;
+            padding: 28px 24px 24px;
+            transform: translateX(calc(100% + 40px));
+            opacity: 0;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.5s ease;
+            max-width: calc(100vw - 48px);
+        }
+        .cont-slidein.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .cont-slidein__close {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 4px 8px;
+            line-height: 1;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .cont-slidein__close:hover {
+            background: #F1F5F9;
+        }
+        .cont-slidein__icon {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .cont-slidein__title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+        .cont-slidein__text {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .cont-slidein__checks {
+            list-style: none;
+            margin-bottom: 18px;
+        }
+        .cont-slidein__checks li {
+            font-size: 13px;
+            color: var(--text);
+            padding-left: 22px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+        .cont-slidein__checks li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        .cont-slidein__cta {
+            display: block;
+            text-align: center;
+            background: var(--secondary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            transition: background 0.2s;
+            margin-bottom: 10px;
+        }
+        .cont-slidein__cta:hover {
+            background: #e55a2b;
+        }
+        .cont-slidein__wa {
+            display: block;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .cont-slidein__wa:hover {
+            color: var(--text);
+        }
+        @media (max-width: 480px) {
+            .cont-slidein {
+                bottom: 80px;
+                right: 12px;
+                width: calc(100vw - 24px);
+                padding: 20px 18px 18px;
+            }
+            .cont-slidein__title {
+                font-size: 16px;
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .cont-hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .cont-hero h1 {
+                font-size: 32px;
+            }
+            .cont-pain-grid {
+                grid-template-columns: 1fr;
+            }
+            .cont-solution-grid {
+                grid-template-columns: 1fr;
+            }
+            .cont-multi-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .cont-why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .cont-hero {
+                padding: 80px 0 60px;
+            }
+        }
+        @media (max-width: 480px) {
+            .cont-why-grid {
+                grid-template-columns: 1fr;
+            }
+            .cont-hero h1 {
+                font-size: 28px;
+            }
+            .cont-solution-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="sticky-top-bar">
+        <header>
+            <div class="container">
+                <nav>
+                    <a href="/" class="logo">
+                        <img src="/images/logo-digisol-full.png" alt="Digisoft Logo" style="height: 40px; vertical-align: middle;">
+                    </a>
+                    <button class="hamburger" aria-label="Menú">
+                        <span></span><span></span><span></span>
+                    </button>
+                    <ul class="nav-links">
+                        <li><a href="/#inicio">Inicio</a></li>
+                        <li><a href="/#modulos">Módulos</a></li>
+                        <li><a href="/#pricing">Precios</a></li>
+                        <li><a href="/faq/">FAQ</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contadores/" class="cta-button" style="background: var(--secondary);">Para Contadores</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+    </div>
+
+    <!-- HERO -->
+    <section class="cont-hero">
+        <div class="container">
+            <div class="cont-hero-content">
+                <div>
+                    <h1>El ERP que los contadores en RD <span class="highlight">eligen para cumplir con la DGII</span></h1>
+                    <p class="subtitle">Gestiona la contabilidad de múltiples clientes desde un solo lugar. Reportes 606, 607, 608 automáticos, facturación electrónica e-CF integrada y soporte local real en República Dominicana.</p>
+                    <ul class="cont-benefits">
+                        <li>Multi-empresa: administra todos tus clientes desde un solo login</li>
+                        <li>Reportes 606, 607, 608 generados automáticamente con 1 clic</li>
+                        <li>Facturación electrónica e-CF integrada y válida ante la DGII</li>
+                        <li>Acompañamiento en tu certificación como emisor de e-CF</li>
+                        <li>Soporte local en RD vía WhatsApp, email y videollamada</li>
+                    </ul>
+                    <div class="cta-group">
+                        <a href="/#contacto" class="cta-button cta-shine">Prueba Gratis 14 Días</a>
+                        <a href="https://wa.me/18098412510" class="cta-button secondary" target="_blank" rel="noopener noreferrer">Hablar con un asesor</a>
+                    </div>
+                    <p class="small-text">14 días gratis, sin tarjeta de crédito · Soporte local incluido</p>
+                </div>
+                <div class="cont-hero-visual">
+                    <div class="mock-header">
+                        <h4>📋 Mis clientes</h4>
+                        <span>4 empresas activas</span>
+                    </div>
+                    <div class="mock-company">
+                        <span class="dot"></span>
+                        <span class="name">Comercial Bávaro SRL</span>
+                        <span class="status">606 · 607 · 608 ✓</span>
+                    </div>
+                    <div class="mock-company">
+                        <span class="dot"></span>
+                        <span class="name">Distribuidora Punta Cana</span>
+                        <span class="status">e-CF al día ✓</span>
+                    </div>
+                    <div class="mock-company">
+                        <span class="dot"></span>
+                        <span class="name">Servicios Turísticos RD</span>
+                        <span class="status">Conciliado ✓</span>
+                    </div>
+                    <div class="mock-company">
+                        <span class="dot"></span>
+                        <span class="name">Construcciones del Este</span>
+                        <span class="status">Pendiente revisar</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOLOR / PROBLEMA -->
+    <section class="cont-pain">
+        <div class="container">
+            <h2>¿Te suena familiar?</h2>
+            <p class="section-subtitle">Los desafíos que enfrentan los contadores en República Dominicana hoy.</p>
+            <div class="cont-pain-grid">
+                <div class="cont-pain-card">
+                    <span class="icon">⏰</span>
+                    <h3>La facturación electrónica llegó para quedarse</h3>
+                    <p>La DGII otorgó una prórroga para la implementación del e-CF, pero el momento de actuar es ahora. Aprovecha el tiempo para certificar a tus clientes sin presiones y con acompañamiento.</p>
+                </div>
+                <div class="cont-pain-card">
+                    <span class="icon">📋</span>
+                    <h3>Reportes manuales sin fin</h3>
+                    <p>Pasar horas generando los formatos 606, 607 y 608 en Excel, con riesgo de errores que pueden costar multas.</p>
+                </div>
+                <div class="cont-pain-card">
+                    <span class="icon">🏢</span>
+                    <h3>Múltiples clientes, múltiples sistemas</h3>
+                    <p>Tener que entrar y salir de cuentas diferentes, con contraseñas distintas, sin una vista unificada de tu cartera.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUCIÓN -->
+    <section class="cont-solution">
+        <div class="container">
+            <h2>Digisoft resuelve estos problemas</h2>
+            <p class="section-subtitle">Un solo ERP diseñado para contadores dominicanos, con todo lo que necesitas para gestionar tu cartera de clientes.</p>
+            <div class="cont-solution-grid">
+                <div class="cont-solution-card">
+                    <div class="s-icon">🏢</div>
+                    <div>
+                        <h3>Multi-empresa desde un solo login</h3>
+                        <p>Alterna entre todos tus clientes sin cerrar sesión. Cada empresa con sus datos, reportes y configuración independiente.</p>
+                    </div>
+                </div>
+                <div class="cont-solution-card">
+                    <div class="s-icon">📊</div>
+                    <div>
+                        <h3>Reportes DGII automáticos</h3>
+                        <p>Genera los formatos 606, 607 y 608 con 1 clic, listos para cargar en la Oficina Virtual. Sin errores de digitación.</p>
+                    </div>
+                </div>
+                <div class="cont-solution-card">
+                    <div class="s-icon">📄</div>
+                    <div>
+                        <h3>Facturación electrónica e-CF integrada</h3>
+                        <p>Emite comprobantes fiscales electrónicos válidos ante la DGII directamente desde el sistema. Incluida en todos los planes.</p>
+                    </div>
+                </div>
+                <div class="cont-solution-card">
+                    <div class="s-icon">🤖</div>
+                    <div>
+                        <h3>OCR + IA para facturas de compra</h3>
+                        <p>Automatiza el registro de facturas de tus clientes con 98% de precisión. Carga, revisa y aprueba en segundos.</p>
+                    </div>
+                </div>
+                <div class="cont-solution-card">
+                    <div class="s-icon">📱</div>
+                    <div>
+                        <h3>Conciliación bancaria</h3>
+                        <p>Concilia los movimientos bancarios de tus clientes de forma rápida y precisa, con reportes siempre actualizados.</p>
+                    </div>
+                </div>
+                <div class="cont-solution-card">
+                    <div class="s-icon">💬</div>
+                    <div>
+                        <h3>Soporte local en República Dominicana</h3>
+                        <p>No eres un ticket más. Te apoyamos por WhatsApp, email o videollamada, en tu mismo horario y con gente que entiende la realidad local.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MULTI-EMPRESA DESTAQUE -->
+    <section class="cont-multi">
+        <div class="container">
+            <div class="cont-multi-inner">
+                <div>
+                    <h2>Gestiona todos tus clientes desde una sola cuenta</h2>
+                    <p>Olvídate de tener múltiples usuarios, contraseñas y ventanas abiertas. Con Digisoft puedes administrar toda tu cartera de clientes desde un solo lugar, alternando entre empresas con un clic.</p>
+                    <ul class="cont-multi-list">
+                        <li>Accede a la contabilidad de cada cliente en tiempo real</li>
+                        <li>Genera reportes individuales por empresa</li>
+                        <li>Invita a tus clientes a colaborar en su propia información</li>
+                        <li>Todo con la misma calidad y soporte local</li>
+                    </ul>
+                </div>
+                <div class="cont-multi-visual">
+                    <div class="mv-header">Panel multi-empresa</div>
+                    <div class="mv-company">
+                        <span class="mv-name">Comercial Bávaro SRL</span>
+                        <span class="mv-docs">606 · 607 · 608</span>
+                        <span class="badge">Al día</span>
+                    </div>
+                    <div class="mv-company">
+                        <span class="mv-name">Distribuidora Punta Cana</span>
+                        <span class="mv-docs">e-CF · ITBIS</span>
+                        <span class="badge">Al día</span>
+                    </div>
+                    <div class="mv-company">
+                        <span class="mv-name">Servicios Turísticos RD</span>
+                        <span class="mv-docs">Conciliación</span>
+                        <span class="badge">Revisar</span>
+                    </div>
+                    <div class="mv-company">
+                        <span class="mv-name">Construcciones del Este</span>
+                        <span class="mv-docs">Pendiente activar</span>
+                        <span class="badge" style="background: var(--secondary);">Nuevo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POR QUÉ DIGISOFT -->
+    <section class="cont-why">
+        <div class="container">
+            <h2>¿Por qué contadores eligen Digisoft?</h2>
+            <div class="cont-why-grid">
+                <div class="cont-why-card">
+                    <span class="w-icon">🇩🇴</span>
+                    <h3>100% dominicano</h3>
+                    <p>Desarrollado en RD para la realidad fiscal y empresarial dominicana. No es una adaptación de otro país.</p>
+                </div>
+                <div class="cont-why-card">
+                    <span class="w-icon">🎯</span>
+                    <h3>Soporte local real</h3>
+                    <p>Equipo en República Dominicana. Te respondemos por WhatsApp, email o videollamada sin rodeos ni tickets eternos.</p>
+                </div>
+                <div class="cont-why-card">
+                    <span class="w-icon">📦</span>
+                    <h3>Migración sin costo</h3>
+                    <p>Importamos los datos de tus clientes desde Excel o cualquier sistema. Sin costo adicional y con acompañamiento.</p>
+                </div>
+                <div class="cont-why-card">
+                    <span class="w-icon">🤝</span>
+                    <h3>Planes personalizados</h3>
+                    <p>No tenemos un plan único para todos. Conversamos contigo, entendemos tu volumen de clientes y te ofrecemos una solución a tu medida.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cont-cta">
+        <div class="container">
+            <h2>Prueba Digisoft gratis por 14 días</h2>
+            <p>Sin tarjeta de crédito. Sin compromiso. Con soporte local incluido desde el día uno.</p>
+            <a href="/#contacto" class="cta-button">Solicitar demo gratuita</a>
+            <p class="small-text">¿Prefieres hablar con alguien? <a href="https://wa.me/18098412510" style="color: rgba(255,255,255,0.8); text-decoration: underline;" target="_blank" rel="noopener noreferrer">Escríbenos por WhatsApp →</a></p>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="cont-faq">
+        <div class="container">
+            <h2>Preguntas frecuentes para contadores</h2>
+            <div class="cont-faq-list">
+                <div class="cont-faq-item">
+                    <button class="cont-faq-question" onclick="toggleContFaq(this)">
+                        <span>¿Puedo gestionar varios clientes desde una misma cuenta?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="cont-faq-answer">
+                        <p>Sí. Digisoft permite manejar múltiples empresas desde un solo login. Puedes alternar entre clientes, generar reportes individuales y tener toda la información centralizada sin necesidad de múltiples cuentas ni cierres de sesión.</p>
+                    </div>
+                </div>
+                <div class="cont-faq-item">
+                    <button class="cont-faq-question" onclick="toggleContFaq(this)">
+                        <span>¿Los reportes 606, 607 y 608 se generan automáticamente?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="cont-faq-answer">
+                        <p>Sí. Los reportes 606 (compras), 607 (ventas) y 608 (anulaciones) se generan automáticamente con 1 clic, listos para cargar en la Oficina Virtual de la DGII. Sin errores de digitación ni cálculos manuales.</p>
+                    </div>
+                </div>
+                <div class="cont-faq-item">
+                    <button class="cont-faq-question" onclick="toggleContFaq(this)">
+                        <span>¿La facturación electrónica e-CF está incluida?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="cont-faq-answer">
+                        <p>Sí, completamente. La facturación electrónica está integrada en todos los planes. Genera e-CF válidos ante la DGII y recibe acompañamiento en tu proceso de certificación como emisor.</p>
+                    </div>
+                </div>
+                <div class="cont-faq-item">
+                    <button class="cont-faq-question" onclick="toggleContFaq(this)">
+                        <span>¿Cómo migro los datos de mis clientes a Digisoft?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="cont-faq-answer">
+                        <p>Exportas los datos desde tu sistema actual en Excel, nos los envías y nuestro equipo los valida e importa. La migración es sin costo adicional y generalmente toma de 1 a 2 semanas por cliente.</p>
+                    </div>
+                </div>
+                <div class="cont-faq-item">
+                    <button class="cont-faq-question" onclick="toggleContFaq(this)">
+                        <span>¿Ofrecen capacitación para mi equipo o para mis clientes?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="cont-faq-answer">
+                        <p>Sí. Incluimos acompañamiento y capacitación inicial para que tanto tú como tus clientes puedan usar el sistema sin problemas. Soporte vía WhatsApp, email y videollamada en horario local.</p>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top: 32px;">
+                <a href="/faq/" class="cta-button secondary">Ver todas las preguntas frecuentes</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE-IN CARD PARA CONTADORES (aparece a los 6 segundos) -->
+    <div class="cont-slidein" id="cont-slidein">
+        <button class="cont-slidein__close" id="cont-slidein-close" aria-label="Cerrar">×</button>
+        <span class="cont-slidein__icon">🧾</span>
+        <h3 class="cont-slidein__title">¿Eres contador?</h3>
+        <p class="cont-slidein__text">Gestiona todos tus clientes desde un solo lugar con Digisoft.</p>
+        <ul class="cont-slidein__checks">
+            <li>Multi-empresa</li>
+            <li>Reportes DGII automáticos</li>
+            <li>e-CF integrado</li>
+        </ul>
+        <a href="/#contacto" class="cont-slidein__cta" id="cont-slidein-cta">Solicitar demo gratuita →</a>
+        <a href="https://wa.me/18098412510" class="cont-slidein__wa" target="_blank" rel="noopener noreferrer">💬 Hablar por WhatsApp</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="/images/logo-digisol-full.png" alt="Digisoft" style="height: 35px; margin-bottom: 10px;">
+                        <p>El ERP contable y administrativo diseñado para impulsar a las empresas de República Dominicana.</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Producto</h4>
+                    <ul>
+                        <li><a href="/#modulos">Módulos</a></li>
+                        <li><a href="/#pricing">Precios</a></li>
+                        <li><a href="/faq/">FAQ</a></li>
+                        <li><a href="/#contacto">Solicitar Demo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="https://digisol.do/about/">Acerca de Digisol</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contadores/">Para Contadores</a></li>
+                        <li><a href="https://digisol.do/contact/">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>info@digisol.do</p>
+                    <p>809 841 2510</p>
+                    <p>Punta Cana, República Dominicana</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Digisoft. Todos los derechos reservados. · <a href="/politica-proteccion-datos/">Política de Protección de Datos</a> · <a href="/terminos-y-condiciones/">Términos y Condiciones</a></p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/digisol.puntacana/">Facebook</a>
+                    <a href="https://www.instagram.com/digisol.puntacana/">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/18098412510" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
+    <script src="/js/main.js" defer></script>
+    <script>
+        function toggleContFaq(btn) {
+            btn.classList.toggle('active');
+            const answer = btn.nextElementSibling;
+            answer.classList.toggle('open');
+        }
+
+        // Slide-in card para contadores: aparece a los 6 segundos
+        (function() {
+            const card = document.getElementById('cont-slidein');
+            if (!card || sessionStorage.getItem('cont_slidein_dismissed')) return;
+
+            setTimeout(function() {
+                card.classList.add('visible');
+            }, 6000);
+
+            document.getElementById('cont-slidein-close')?.addEventListener('click', function() {
+                card.classList.remove('visible');
+                sessionStorage.setItem('cont_slidein_dismissed', '1');
+            });
+
+            document.getElementById('cont-slidein-cta')?.addEventListener('click', function() {
+                sessionStorage.setItem('cont_slidein_dismissed', '1');
+            });
+        })();
+    </script>
+</body>
+</html>

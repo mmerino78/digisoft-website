@@ -130,35 +130,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Countdown al 15/05/2026 - DGII obliga facturación electrónica
-function updateCountdown() {
-    const target = new Date('2026-05-15T23:59:59').getTime();
-    const now = new Date().getTime();
-    const diff = target - now;
-
-    if (diff <= 0) {
-        document.getElementById('days').textContent = '00';
-        document.getElementById('hours').textContent = '00';
-        document.getElementById('minutes').textContent = '00';
-        document.getElementById('seconds').textContent = '00';
-        return;
-    }
-
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-    document.getElementById('days').textContent = String(days).padStart(2, '0');
-    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-}
-
-if (document.getElementById('countdown')) {
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-}
 
 // Toggle FAQ
 function toggleFaq(button) {
@@ -273,9 +244,6 @@ if ('IntersectionObserver' in window) {
 
 // ===== ENGAGEMENT: Bottom bar, Slide-in card, Exit-intent popup =====
 (function () {
-    const DEADLINE = new Date('2026-05-15T23:59:59');
-    const daysLeft = Math.max(1, Math.ceil((DEADLINE - new Date()) / (1000 * 60 * 60 * 24)));
-
     function track(event, params) {
         if (typeof gtag === 'function') gtag('event', event, params || {});
     }
@@ -283,9 +251,6 @@ if ('IntersectionObserver' in window) {
     // ---- 1. STICKY BOTTOM BAR (solo mobile) ----
     const bar = document.getElementById('sticky-bottom-bar');
     if (bar && window.innerWidth <= 768 && !sessionStorage.getItem('bar_dismissed')) {
-        const barDaysEl = document.getElementById('bar-days');
-        if (barDaysEl) barDaysEl.textContent = daysLeft;
-
         setTimeout(function () {
             bar.classList.add('visible');
             document.body.classList.add('bar-visible');
@@ -325,10 +290,6 @@ if ('IntersectionObserver' in window) {
     // ---- 3. POPUP INMEDIATO (al cargar la página, una vez por sesión) ----
     const popup = document.getElementById('exit-popup');
     if (popup && !sessionStorage.getItem('popup_shown')) {
-        const popupDaysEl = document.getElementById('popup-days');
-        if (popupDaysEl) popupDaysEl.textContent = daysLeft;
-
-        // Mostrar al cargar la página
         setTimeout(function () {
             popup.classList.add('active');
             sessionStorage.setItem('popup_shown', '1');
@@ -337,7 +298,6 @@ if ('IntersectionObserver' in window) {
 
         function closePopup() {
             popup.classList.remove('active');
-            // Tras cerrar el popup, mostrar la tarjeta a los 30 segundos (solo desktop)
             if (window.innerWidth > 768) {
                 setTimeout(showCard, 10000);
             }
