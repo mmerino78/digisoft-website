@@ -391,40 +391,51 @@ if ('IntersectionObserver' in window) {
     }, { passive: true });
 })();
 
-// 10. WhatsApp prefill: inyecta texto inicial al chat con origen + UTM
-// Cuando user click cualquier wa.me, link se reescribe con ?text=... antes de navegar
+// 10. WhatsApp prefill: ref code corto al final del mensaje para identificar origen del lead
+// Formato: [Ref: BOTON-PAGE-UTM]  ej: FL-CT-FB = float + contadores + fb
+// Botón: FL float, PE popup, CS contadores-slidein, SE sección, FT footer, EG enlace general
+// Página: HM home, CT contadores, FQ faq, BG blog, PR política, TC términos, XX otra
+// UTM: FB fb, IG ig, GO google, BG bing, DR direct, otra=3 letras upper
 (function() {
-    function detectSource(link) {
-        if (link.classList.contains('whatsapp-float')) return 'boton_flotante';
-        if (link.id === 'popup-cta-wa') return 'popup_entrada';
-        if (link.classList.contains('cont-slidein__wa')) return 'contadores_slidein';
-        var sec = link.closest('section, footer');
-        if (sec && sec.id) return 'seccion_' + sec.id;
-        if (link.closest('footer')) return 'footer';
-        return 'enlace_general';
+    function btnCode(link) {
+        if (link.classList.contains('whatsapp-float')) return 'FL';
+        if (link.id === 'popup-cta-wa') return 'PE';
+        if (link.classList.contains('cont-slidein__wa')) return 'CS';
+        if (link.closest('footer')) return 'FT';
+        if (link.closest('section')) return 'SE';
+        return 'EG';
     }
-    function buildPrefill(source) {
-        var traffic = window._gaTraffic || {};
-        var page = window.location.pathname;
-        var parts = ['Hola, vengo desde digisoft.do (' + source + ', página ' + page + ')'];
-        var utm = [];
-        if (traffic.utm_source) utm.push('source:' + traffic.utm_source);
-        if (traffic.utm_medium) utm.push('medium:' + traffic.utm_medium);
-        if (traffic.utm_campaign) utm.push('campaign:' + traffic.utm_campaign);
-        if (utm.length) parts.push('[UTM ' + utm.join(', ') + ']');
-        parts.push('— Me interesa Digisoft, ¿me ayudan?');
-        return parts.join(' ');
+    function pageCode() {
+        var p = window.location.pathname.toLowerCase();
+        if (p === '/' || p === '/index.html') return 'HM';
+        if (p.indexOf('/contadores') === 0) return 'CT';
+        if (p.indexOf('/faq') === 0) return 'FQ';
+        if (p.indexOf('/blog') === 0) return 'BG';
+        if (p.indexOf('/politica') === 0) return 'PR';
+        if (p.indexOf('/terminos') === 0) return 'TC';
+        return 'XX';
+    }
+    function utmCode() {
+        var src = (window._gaTraffic && window._gaTraffic.utm_source) || '';
+        if (!src) return 'DR';
+        var s = src.toLowerCase();
+        if (s === 'fb' || s === 'facebook') return 'FB';
+        if (s === 'ig' || s === 'instagram') return 'IG';
+        if (s === 'google') return 'GO';
+        if (s === 'bing') return 'BG';
+        if (s === '(direct)' || s === 'direct') return 'DR';
+        return src.substring(0, 3).toUpperCase();
+    }
+    function buildPrefill(link) {
+        var ref = btnCode(link) + '-' + pageCode() + '-' + utmCode();
+        return 'Hola, me interesa Digisoft. [Ref: ' + ref + ']';
     }
     function rewriteHref(link) {
         var base = link.href.split('?')[0];
-        var source = detectSource(link);
-        var text = buildPrefill(source);
-        link.href = base + '?text=' + encodeURIComponent(text);
+        link.href = base + '?text=' + encodeURIComponent(buildPrefill(link));
     }
     document.querySelectorAll('a[href*="wa.me/"]').forEach(function(link) {
-        // Rewrite on click (capture phase) — usa UTM y page actuales al momento del clic
         link.addEventListener('click', function() { rewriteHref(link); }, { capture: true });
-        // También touch (móvil prevent default puede saltar antes)
         link.addEventListener('touchstart', function() { rewriteHref(link); }, { capture: true, passive: true });
     });
 })();
