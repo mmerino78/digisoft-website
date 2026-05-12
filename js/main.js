@@ -105,12 +105,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const email = demoForm.querySelector('#demo-email').value.trim();
             const telefono = demoForm.querySelector('#demo-telefono').value.trim();
 
-            // Atribución UTM → adjunta al mensaje para que llegue al inbox
+            // Atribución → bloque al mensaje (backwards compat) + campos separados (preferido cuando backend lo soporte)
             var traffic = window._gaTraffic || {};
             var attribLines = [];
             if (traffic.utm_source) attribLines.push('utm_source: ' + traffic.utm_source);
             if (traffic.utm_medium) attribLines.push('utm_medium: ' + traffic.utm_medium);
             if (traffic.utm_campaign) attribLines.push('utm_campaign: ' + traffic.utm_campaign);
+            attribLines.push('page_url: ' + window.location.href);
+            if (document.referrer) attribLines.push('referrer: ' + document.referrer);
             var attribBlock = attribLines.length ? '\n\n[Atribución]\n' + attribLines.join('\n') : '';
 
             // Misma API que digisol.do/contact (SMTP único en Vercel Digisol)
@@ -119,7 +121,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 email: email,
                 telefono: telefono,
                 servicio: 'desarrollo',
-                mensaje: '[Digisoft — solicitud de prueba gratuita desde digisoft.do]\n\nEnviar al correo indicado la invitación para activar la prueba gratuita del ERP.' + attribBlock
+                mensaje: '[Digisoft — solicitud de prueba gratuita desde digisoft.do]\n\nEnviar al correo indicado la invitación para activar la prueba gratuita del ERP.' + attribBlock,
+                utm_source: traffic.utm_source || '',
+                utm_medium: traffic.utm_medium || '',
+                utm_campaign: traffic.utm_campaign || '',
+                page_url: window.location.href,
+                referrer: document.referrer || ''
             };
 
             fetch('https://digisol.do/api/contact/', {
@@ -382,6 +389,44 @@ if ('IntersectionObserver' in window) {
             ticking = true;
         }
     }, { passive: true });
+})();
+
+// 10. WhatsApp prefill: inyecta texto inicial al chat con origen + UTM
+// Cuando user click cualquier wa.me, link se reescribe con ?text=... antes de navegar
+(function() {
+    function detectSource(link) {
+        if (link.classList.contains('whatsapp-float')) return 'boton_flotante';
+        if (link.id === 'popup-cta-wa') return 'popup_entrada';
+        if (link.classList.contains('cont-slidein__wa')) return 'contadores_slidein';
+        var sec = link.closest('section, footer');
+        if (sec && sec.id) return 'seccion_' + sec.id;
+        if (link.closest('footer')) return 'footer';
+        return 'enlace_general';
+    }
+    function buildPrefill(source) {
+        var traffic = window._gaTraffic || {};
+        var page = window.location.pathname;
+        var parts = ['Hola, vengo desde digisoft.do (' + source + ', página ' + page + ')'];
+        var utm = [];
+        if (traffic.utm_source) utm.push('source:' + traffic.utm_source);
+        if (traffic.utm_medium) utm.push('medium:' + traffic.utm_medium);
+        if (traffic.utm_campaign) utm.push('campaign:' + traffic.utm_campaign);
+        if (utm.length) parts.push('[UTM ' + utm.join(', ') + ']');
+        parts.push('— Me interesa Digisoft, ¿me ayudan?');
+        return parts.join(' ');
+    }
+    function rewriteHref(link) {
+        var base = link.href.split('?')[0];
+        var source = detectSource(link);
+        var text = buildPrefill(source);
+        link.href = base + '?text=' + encodeURIComponent(text);
+    }
+    document.querySelectorAll('a[href*="wa.me/"]').forEach(function(link) {
+        // Rewrite on click (capture phase) — usa UTM y page actuales al momento del clic
+        link.addEventListener('click', function() { rewriteHref(link); }, { capture: true });
+        // También touch (móvil prevent default puede saltar antes)
+        link.addEventListener('touchstart', function() { rewriteHref(link); }, { capture: true, passive: true });
+    });
 })();
 
 // 9. Clics a enlaces externos
