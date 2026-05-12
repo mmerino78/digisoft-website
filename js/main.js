@@ -427,19 +427,48 @@ document.querySelectorAll('a[href^="http"]').forEach(function(link) {
         track('tarjeta_lateral_cta_clic');
     });
 
-    // ---- 3. POPUP INMEDIATO (al cargar la página, una vez por sesión) ----
+    // ---- 3. POPUP (intent-based: exit en desktop, scroll 50% en mobile, fallback 30s) ----
     const popup = document.getElementById('exit-popup');
     if (popup && !sessionStorage.getItem('popup_shown')) {
-        setTimeout(function () {
+        var popupFired = false;
+        var isMobile = window.innerWidth <= 768;
+
+        function showPopup(disparo) {
+            if (popupFired) return;
+            popupFired = true;
             popup.classList.add('active');
             sessionStorage.setItem('popup_shown', '1');
-            track('popup_entrada_visible', { disparo: 'carga_pagina' });
-        }, 500);
+            track('popup_entrada_visible', { disparo: disparo });
+        }
+
+        if (isMobile) {
+            // Mobile: trigger por scroll 50% (intención real de leer)
+            var scrollListener = function () {
+                var pct = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100;
+                if (pct >= 50) {
+                    showPopup('scroll_50');
+                    window.removeEventListener('scroll', scrollListener);
+                }
+            };
+            window.addEventListener('scroll', scrollListener, { passive: true });
+        } else {
+            // Desktop: exit-intent real (mouseleave hacia el top del viewport)
+            var exitListener = function (e) {
+                if (e.clientY <= 0) {
+                    showPopup('exit_intent');
+                    document.removeEventListener('mouseleave', exitListener);
+                }
+            };
+            document.addEventListener('mouseleave', exitListener);
+        }
+
+        // Fallback: si nada disparó en 30s, mostrar igualmente (no perder tráfico bouncing)
+        setTimeout(function () { showPopup('fallback_30s'); }, 30000);
 
         function closePopup() {
             popup.classList.remove('active');
             if (window.innerWidth > 768) {
-                setTimeout(showCard, 14000);
+                setTimeout(showCard, 8000);
             }
         }
 
