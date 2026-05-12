@@ -462,8 +462,8 @@ document.querySelectorAll('a[href^="http"]').forEach(function(link) {
             document.addEventListener('mouseleave', exitListener);
         }
 
-        // Fallback: si nada disparó en 30s, mostrar igualmente (no perder tráfico bouncing)
-        setTimeout(function () { showPopup('fallback_30s'); }, 30000);
+        // Fallback: si nada disparó en 8s, mostrar igualmente (no perder tráfico bouncing)
+        setTimeout(function () { showPopup('fallback_8s'); }, 8000);
 
         function closePopup() {
             popup.classList.remove('active');
