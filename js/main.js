@@ -31,6 +31,37 @@ fbq('track', 'PageView');
     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 })(window, document, "clarity", "script", "wq2k10htvp");
 
+// Meta CAPI (server-side dedup) — espejo de eventos Pixel browser hacia /api/meta-capi
+// event_id compartido entre fbq y CAPI => Meta deduplica
+function generateMetaEventId() {
+    return Date.now() + '-' + Math.random().toString(36).substring(2, 12);
+}
+function getCookieValue(name) {
+    var m = document.cookie.match(new RegExp('(^|;\\s*)' + name + '=([^;]+)'));
+    return m ? decodeURIComponent(m[2]) : '';
+}
+function sendMetaCAPI(event_name, event_id, opts) {
+    opts = opts || {};
+    try {
+        fetch('https://digisol.do/api/meta-capi', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                event_name: event_name,
+                event_id: event_id,
+                event_source_url: window.location.href,
+                user_agent: navigator.userAgent,
+                fbp: getCookieValue('_fbp'),
+                fbc: getCookieValue('_fbc'),
+                email: opts.email || '',
+                phone: opts.phone || '',
+                custom_data: opts.custom_data || {}
+            }),
+            keepalive: true
+        }).catch(function() { /* fire-and-forget */ });
+    } catch (e) { /* network blocked, ignore */ }
+}
+
 // UTM → first-touch persistente en localStorage (sobrevive cierre de pestaña)
 (function() {
     var params = new URLSearchParams(window.location.search);
@@ -143,11 +174,21 @@ document.addEventListener('DOMContentLoaded', function () {
                         demoForm.reset();
                         alert('Su mensaje se ha enviado correctamente.');
                         trackGA('formulario_demo_enviado', { empresa: empresa });
+                        var leadEventId = generateMetaEventId();
                         if (typeof fbq === 'function') fbq('track', 'Lead', {
                             content_name: 'Prueba gratis Digisoft',
                             content_category: 'demo_request',
                             currency: 'DOP',
                             value: 0
+                        }, { eventID: leadEventId });
+                        sendMetaCAPI('Lead', leadEventId, {
+                            email: email,
+                            custom_data: {
+                                content_name: 'Prueba gratis Digisoft',
+                                content_category: 'demo_request',
+                                currency: 'DOP',
+                                value: 0
+                            }
                         });
                     } else {
                         btn.textContent = 'Reintentar';
@@ -270,7 +311,9 @@ const waFloat = document.querySelector('.whatsapp-float');
 if (waFloat) {
     waFloat.addEventListener('click', function() {
         trackGA('whatsapp_flotante_clic', { ubicacion: 'boton_flotante' });
-        if (typeof fbq === 'function') fbq('track', 'Contact', { source: 'whatsapp_float' });
+        var waEventId = generateMetaEventId();
+        if (typeof fbq === 'function') fbq('track', 'Contact', { source: 'whatsapp_float' }, { eventID: waEventId });
+        sendMetaCAPI('Contact', waEventId, { custom_data: { source: 'whatsapp_float' } });
     });
 }
 
@@ -516,7 +559,9 @@ document.querySelectorAll('a[href^="http"]').forEach(function(link) {
 
         document.getElementById('popup-cta-wa')?.addEventListener('click', function () {
             track('popup_entrada_whatsapp_clic');
-            if (typeof fbq === 'function') fbq('track', 'Contact', { source: 'popup_whatsapp' });
+            var popupWaEventId = generateMetaEventId();
+            if (typeof fbq === 'function') fbq('track', 'Contact', { source: 'popup_whatsapp' }, { eventID: popupWaEventId });
+            sendMetaCAPI('Contact', popupWaEventId, { custom_data: { source: 'popup_whatsapp' } });
         });
 
         document.getElementById('popup-cta-form')?.addEventListener('click', function () {
