@@ -15,30 +15,32 @@
     gtag('config', 'G-R5007WS0J2');
 })();
 
-// UTM → Google Analytics: hereda fuente de tráfico en toda la sesión
+// UTM → first-touch persistente en localStorage (sobrevive cierre de pestaña)
 (function() {
     var params = new URLSearchParams(window.location.search);
     var source = params.get('utm_source');
     var medium = params.get('utm_medium');
     var campaign = params.get('utm_campaign');
+    // Solo guardar primera vez (first-touch) o si llegan UTM nuevos
     if (source || medium || campaign) {
-        if (source) sessionStorage.setItem('utm_source', source);
-        if (medium) sessionStorage.setItem('utm_medium', medium);
-        if (campaign) sessionStorage.setItem('utm_campaign', campaign);
+        if (source && !localStorage.getItem('utm_source')) localStorage.setItem('utm_source', source);
+        if (medium && !localStorage.getItem('utm_medium')) localStorage.setItem('utm_medium', medium);
+        if (campaign && !localStorage.getItem('utm_campaign')) localStorage.setItem('utm_campaign', campaign);
     }
-    var storedSource = sessionStorage.getItem('utm_source');
-    var storedMedium = sessionStorage.getItem('utm_medium');
-    var storedCampaign = sessionStorage.getItem('utm_campaign');
+    var storedSource = localStorage.getItem('utm_source');
+    var storedMedium = localStorage.getItem('utm_medium');
+    var storedCampaign = localStorage.getItem('utm_campaign');
     if (storedSource || storedMedium || storedCampaign) {
         window._gaTraffic = {
-            source: storedSource || '',
-            medium: storedMedium || '',
-            campaign: storedCampaign || ''
+            utm_source: storedSource || '',
+            utm_medium: storedMedium || '',
+            utm_campaign: storedCampaign || ''
         };
     }
 })();
 
 // Helper global: adjunta fuente de tráfico a todos los eventos GA4
+// Nombres utm_* para no chocar con reserved GA4 params (source/medium/campaign son reservados)
 function trackGA(event, params) {
     if (typeof gtag !== 'function') return;
     var traffic = window._gaTraffic || {};
@@ -48,9 +50,9 @@ function trackGA(event, params) {
             if (params.hasOwnProperty(k)) merged[k] = params[k];
         }
     }
-    merged.source = traffic.source || '';
-    merged.medium = traffic.medium || '';
-    merged.campaign = traffic.campaign || '';
+    merged.utm_source = traffic.utm_source || '';
+    merged.utm_medium = traffic.utm_medium || '';
+    merged.utm_campaign = traffic.utm_campaign || '';
     gtag('event', event, merged);
 }
 
@@ -94,13 +96,21 @@ document.addEventListener('DOMContentLoaded', function () {
             const email = demoForm.querySelector('#demo-email').value.trim();
             const telefono = demoForm.querySelector('#demo-telefono').value.trim();
 
+            // Atribución UTM → adjunta al mensaje para que llegue al inbox
+            var traffic = window._gaTraffic || {};
+            var attribLines = [];
+            if (traffic.utm_source) attribLines.push('utm_source: ' + traffic.utm_source);
+            if (traffic.utm_medium) attribLines.push('utm_medium: ' + traffic.utm_medium);
+            if (traffic.utm_campaign) attribLines.push('utm_campaign: ' + traffic.utm_campaign);
+            var attribBlock = attribLines.length ? '\n\n[Atribución]\n' + attribLines.join('\n') : '';
+
             // Misma API que digisol.do/contact (SMTP único en Vercel Digisol)
             const formData = {
                 nombre: empresa,
                 email: email,
                 telefono: telefono,
                 servicio: 'desarrollo',
-                mensaje: '[Digisoft — solicitud de prueba gratuita desde digisoft.do]\n\nEnviar al correo indicado la invitación para activar la prueba gratuita del ERP.'
+                mensaje: '[Digisoft — solicitud de prueba gratuita desde digisoft.do]\n\nEnviar al correo indicado la invitación para activar la prueba gratuita del ERP.' + attribBlock
             };
 
             fetch('https://digisol.do/api/contact/', {
@@ -118,17 +128,17 @@ document.addEventListener('DOMContentLoaded', function () {
                         btn.textContent = '¡Enviado!';
                         demoForm.reset();
                         alert('Su mensaje se ha enviado correctamente.');
-                        trackGA('formulario_enviado', { empresa: empresa });
+                        trackGA('formulario_demo_enviado', { empresa: empresa });
                     } else {
                         btn.textContent = 'Reintentar';
                         alert(result.data.error || 'No se pudo enviar. Prueba por WhatsApp.');
-                        trackGA('formulario_error', { motivo: result.data.error || 'server_error' });
+                        trackGA('formulario_demo_error', { motivo: result.data.error || 'server_error' });
                     }
                 })
                 .catch(function () {
                     btn.textContent = 'Reintentar';
                     alert('No se pudo conectar. Comprueba tu conexión o escríbenos por WhatsApp.');
-                    trackGA('formulario_error', { motivo: 'sin_conexion' });
+                    trackGA('formulario_demo_error', { motivo: 'sin_conexion' });
                 })
                 .finally(function () {
                     setTimeout(function () {
@@ -140,14 +150,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Track field abandonment: último campo antes de cerrar/navegar fuera sin enviar
+    // pagehide es más fiable que beforeunload en móvil (Safari iOS no dispara beforeunload)
     if (demoForm) {
         var _lastField = null;
         demoForm.querySelectorAll('input').forEach(function(f) {
             f.addEventListener('focus', function() { _lastField = this.id; });
         });
         demoForm.addEventListener('submit', function() { _lastField = null; });
-        window.addEventListener('beforeunload', function() {
-            if (_lastField && typeof trackGA === 'function') trackGA('field_abandoned', { field: _lastField });
+        window.addEventListener('pagehide', function() {
+            if (_lastField && typeof trackGA === 'function') trackGA('formulario_demo_campo_abandonado', { field: _lastField });
         });
     }
 });
@@ -181,7 +192,7 @@ function toggleFaq(button) {
     const faqItem = button.parentElement;
     const isOpening = !faqItem.classList.contains('active');
     faqItem.classList.toggle('active');
-    if (isOpening) trackGA('faq_abierta', { pregunta: button.textContent.trim().substring(0, 80) });
+    if (isOpening) trackGA('faq_pregunta_abierta', { pregunta: button.textContent.trim().substring(0, 80) });
 }
 
 // Smooth scroll para links internos
@@ -220,11 +231,13 @@ window.addEventListener('scroll', () => {
 // ===== GOOGLE ANALYTICS TRACKING =====
 
 // 1. CTA clicks — texto del botón + sección de origen + destino
+// Excluye CTAs dentro de .nav-links (los captura menu_navegacion_clic para evitar doble evento)
 document.querySelectorAll('.cta-button').forEach(button => {
+    if (button.closest('.nav-links')) return;
     button.addEventListener('click', function() {
         if (typeof gtag !== 'function') return;
-        const section = this.closest('section')?.id || (this.closest('nav') ? 'nav' : 'unknown');
-        trackGA('boton_cta_clic', {
+        const section = this.closest('section')?.id || 'unknown';
+        trackGA('boton_cta_generico', {
             texto: this.innerText.trim(),
             seccion: section,
             destino: this.getAttribute('href') || ''
@@ -236,7 +249,7 @@ document.querySelectorAll('.cta-button').forEach(button => {
 const waFloat = document.querySelector('.whatsapp-float');
 if (waFloat) {
     waFloat.addEventListener('click', function() {
-        trackGA('whatsapp_clic', { ubicacion: 'boton_flotante' });
+        trackGA('whatsapp_flotante_clic', { ubicacion: 'boton_flotante' });
     });
 }
 
@@ -247,24 +260,27 @@ document.querySelectorAll('.toggle-btn').forEach(btn => {
         var periodo = this.dataset.period === 'monthly' ? 'mensual' : 'anual';
         _pricingToggleCount++;
         sessionStorage.setItem('_ptc', _pricingToggleCount);
-        trackGA('precios_periodo_cambiado', { periodo: periodo, toggle_count: _pricingToggleCount });
+        trackGA('precios_alternar_periodo', { periodo: periodo, toggle_count: _pricingToggleCount });
         if (_pricingToggleCount === 3 || _pricingToggleCount === 6) {
-            trackGA('pricing_toggle_multiple', { count: _pricingToggleCount });
+            trackGA('precios_alternar_repetido', { count: _pricingToggleCount });
         }
     });
 });
 
-// 4. Inicio de formulario (primer foco en cualquier campo)
+// 4. Inicio de formulario — primer foco/touch en CUALQUIER campo del form
 (function() {
-    const firstField = document.getElementById('demo-email');
-    if (!firstField) return;
+    const form = document.getElementById('demo-form');
+    if (!form) return;
     let fired = false;
-    ['focus', 'touchstart'].forEach(evt => {
-        firstField.addEventListener(evt, function() {
-            if (fired) return;
-            fired = true;
-            trackGA('formulario_iniciado', {});
-        }, { once: true });
+    const fields = form.querySelectorAll('input, textarea, select');
+    fields.forEach(function(field) {
+        ['focus', 'touchstart'].forEach(function(evt) {
+            field.addEventListener(evt, function() {
+                if (fired) return;
+                fired = true;
+                trackGA('formulario_demo_iniciado', { campo_inicial: field.id || field.name || 'sin_id' });
+            }, { once: true });
+        });
     });
 })();
 
@@ -273,7 +289,7 @@ if ('IntersectionObserver' in window) {
     const sectionObserver = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
             if (!entry.isIntersecting) return;
-            trackGA('seccion_vista', { seccion: entry.target.id });
+            trackGA('seccion_visible', { seccion: entry.target.id });
             sectionObserver.unobserve(entry.target);
         });
     }, { threshold: 0.3 });
@@ -287,7 +303,7 @@ if ('IntersectionObserver' in window) {
 // 6. Navegación del menú principal
 document.querySelectorAll('.nav-links a').forEach(function(link) {
     link.addEventListener('click', function() {
-        trackGA('nav_click', {
+        trackGA('menu_navegacion_clic', {
             texto: this.innerText.trim(),
             destino: this.getAttribute('href') || ''
         });
@@ -302,7 +318,7 @@ if ('IntersectionObserver' in window) {
             var card = entry.target;
             var timer = setTimeout(function() {
                 var planName = (card.querySelector('h3') && card.querySelector('h3').innerText.trim()) || 'desconocido';
-                trackGA('pricing_card_view', { plan: planName });
+                trackGA('precios_tarjeta_vista', { plan: planName });
                 pricingObserver.unobserve(card);
             }, 2000);
             card._pricingTimer = timer;
@@ -342,7 +358,7 @@ if ('IntersectionObserver' in window) {
                 marks.forEach(function(m) {
                     if (scrollPct >= m && !fired[m]) {
                         fired[m] = true;
-                        trackGA('scroll_depth', { depth: m, page: window.location.pathname });
+                        trackGA('profundidad_scroll', { depth: m, page: window.location.pathname });
                     }
                 });
                 ticking = false;
@@ -353,10 +369,12 @@ if ('IntersectionObserver' in window) {
 })();
 
 // 9. Clics a enlaces externos
+// Excluye .whatsapp-float (lo captura whatsapp_flotante_clic para evitar doble evento)
 document.querySelectorAll('a[href^="http"]').forEach(function(link) {
     if (link.hostname === window.location.hostname) return;
+    if (link.classList.contains('whatsapp-float')) return;
     link.addEventListener('click', function() {
-        trackGA('outbound_link_click', {
+        trackGA('enlace_externo_clic', {
             dominio: link.hostname,
             url: link.href.substring(0, 200)
         });
@@ -375,18 +393,18 @@ document.querySelectorAll('a[href^="http"]').forEach(function(link) {
         setTimeout(function () {
             bar.classList.add('visible');
             document.body.classList.add('bar-visible');
-            track('barra_mostrada');
+            track('barra_inferior_visible');
         }, 4000);
 
         document.getElementById('bar-close')?.addEventListener('click', function () {
             bar.classList.remove('visible');
             document.body.classList.remove('bar-visible');
             sessionStorage.setItem('bar_dismissed', '1');
-            track('barra_cerrada');
+            track('barra_inferior_cerrada');
         });
 
         document.getElementById('bar-cta')?.addEventListener('click', function () {
-            track('barra_cta_clic');
+            track('barra_inferior_cta_clic');
         });
     }
 
@@ -396,17 +414,17 @@ document.querySelectorAll('a[href^="http"]').forEach(function(link) {
     function showCard() {
         if (!card || sessionStorage.getItem('card_dismissed')) return;
         card.classList.add('visible');
-        track('tarjeta_mostrada');
+        track('tarjeta_lateral_visible');
     }
 
     document.getElementById('card-close')?.addEventListener('click', function () {
         if (card) card.classList.remove('visible');
         sessionStorage.setItem('card_dismissed', '1');
-        track('tarjeta_cerrada');
+        track('tarjeta_lateral_cerrada');
     });
 
     document.getElementById('card-cta')?.addEventListener('click', function () {
-        track('tarjeta_cta_clic');
+        track('tarjeta_lateral_cta_clic');
     });
 
     // ---- 3. POPUP INMEDIATO (al cargar la página, una vez por sesión) ----
@@ -415,7 +433,7 @@ document.querySelectorAll('a[href^="http"]').forEach(function(link) {
         setTimeout(function () {
             popup.classList.add('active');
             sessionStorage.setItem('popup_shown', '1');
-            track('popup_mostrado', { disparo: 'carga_pagina' });
+            track('popup_entrada_visible', { disparo: 'carga_pagina' });
         }, 500);
 
         function closePopup() {
@@ -427,24 +445,24 @@ document.querySelectorAll('a[href^="http"]').forEach(function(link) {
 
         document.getElementById('exit-popup-close')?.addEventListener('click', function () {
             closePopup();
-            track('popup_cerrado');
+            track('popup_entrada_cerrado');
         });
 
         popup.addEventListener('click', function (e) {
             if (e.target === popup) {
                 closePopup();
-                track('popup_cerrado');
+                track('popup_entrada_cerrado');
             }
         });
 
         document.getElementById('popup-cta-wa')?.addEventListener('click', function () {
-            track('popup_cta_whatsapp_clic');
+            track('popup_entrada_whatsapp_clic');
         });
 
         document.getElementById('popup-cta-form')?.addEventListener('click', function () {
             closePopup();
             document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
-            track('popup_cta_formulario_clic');
+            track('popup_entrada_formulario_clic');
         });
     }
 })();
@@ -452,7 +470,7 @@ document.querySelectorAll('a[href^="http"]').forEach(function(link) {
 // Errores JS en producción
 window.addEventListener('error', function(e) {
     if (e.error && typeof trackGA === 'function') {
-        trackGA('js_error', {
+        trackGA('error_javascript', {
             message: (e.error.message || '').substring(0, 150),
             file: (e.filename || '').split('/').pop(),
             line: e.lineno || 0

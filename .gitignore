@@ -2,3 +2,6 @@
 .env*.local
 .DS_Store
 oauth_credentials.json
+node_modules/
+.playwright-mcp/
+*.log
