@@ -110,7 +110,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const empresa = demoForm.querySelector('#demo-empresa').value.trim();
             const email = demoForm.querySelector('#demo-email').value.trim();
-            const telefono = demoForm.querySelector('#demo-telefono').value.trim();
 
             // Atribución → campos separados (backend digisol.do/api/contact renderiza sección dedicada)
             var traffic = window._gaTraffic || {};
@@ -119,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const formData = {
                 nombre: empresa,
                 email: email,
-                telefono: telefono,
                 servicio: 'Prueba gratuita Digisoft (14 días)',
                 mensaje: '[Digisoft — solicitud de prueba gratuita desde digisoft.do]\n\nEnviar al correo indicado la invitación para activar la prueba gratuita del ERP.',
                 utm_source: traffic.utm_source || '',
