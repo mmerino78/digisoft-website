@@ -391,52 +391,12 @@ if ('IntersectionObserver' in window) {
     }, { passive: true });
 })();
 
-// 10. WhatsApp prefill: ref code corto al final del mensaje para identificar origen del lead
-// Formato: [Ref: BOTON-PAGE-UTM]  ej: FL-CT-FB = float + contadores + fb
-// Botón: FL float, PE popup, CS contadores-slidein, SE sección, FT footer, EG enlace general
-// Página: HM home, CT contadores, FQ faq, BG blog, PR política, TC términos, XX otra
-// UTM: FB fb, IG ig, GO google, BG bing, DR direct, otra=3 letras upper
+// 10. WhatsApp prefill: mensaje natural. Source tracking ya cubierto por Meta Pixel + GA4.
 (function() {
-    function btnCode(link) {
-        if (link.classList.contains('whatsapp-float')) return 'FL';
-        if (link.id === 'popup-cta-wa') return 'PE';
-        if (link.classList.contains('cont-slidein__wa')) return 'CS';
-        if (link.closest('footer')) return 'FT';
-        if (link.closest('section')) return 'SE';
-        return 'EG';
-    }
-    function pageCode() {
-        var p = window.location.pathname.toLowerCase();
-        if (p === '/' || p === '/index.html') return 'HM';
-        if (p.indexOf('/contadores') === 0) return 'CT';
-        if (p.indexOf('/faq') === 0) return 'FQ';
-        if (p.indexOf('/blog') === 0) return 'BG';
-        if (p.indexOf('/politica') === 0) return 'PR';
-        if (p.indexOf('/terminos') === 0) return 'TC';
-        return 'XX';
-    }
-    function utmCode() {
-        var src = (window._gaTraffic && window._gaTraffic.utm_source) || '';
-        if (!src) return 'DR';
-        var s = src.toLowerCase();
-        if (s === 'fb' || s === 'facebook') return 'FB';
-        if (s === 'ig' || s === 'instagram') return 'IG';
-        if (s === 'google') return 'GO';
-        if (s === 'bing') return 'BG';
-        if (s === '(direct)' || s === 'direct') return 'DR';
-        return src.substring(0, 3).toUpperCase();
-    }
-    function buildPrefill(link) {
-        var ref = btnCode(link) + '-' + pageCode() + '-' + utmCode();
-        return 'Hola, me interesa Digisoft. [Ref: ' + ref + ']';
-    }
-    function rewriteHref(link) {
-        var base = link.href.split('?')[0];
-        link.href = base + '?text=' + encodeURIComponent(buildPrefill(link));
-    }
+    var text = 'Hola, estoy interesado en Digisoft. Vengo desde la web.';
     document.querySelectorAll('a[href*="wa.me/"]').forEach(function(link) {
-        link.addEventListener('click', function() { rewriteHref(link); }, { capture: true });
-        link.addEventListener('touchstart', function() { rewriteHref(link); }, { capture: true, passive: true });
+        var base = link.href.split('?')[0];
+        link.href = base + '?text=' + encodeURIComponent(text);
     });
 })();
 
