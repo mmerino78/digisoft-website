@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 nombre: empresa,
                 email: email,
                 telefono: telefono,
-                servicio: 'desarrollo',
+                servicio: 'Prueba gratuita Digisoft (14 días)',
                 mensaje: '[Digisoft — solicitud de prueba gratuita desde digisoft.do]\n\nEnviar al correo indicado la invitación para activar la prueba gratuita del ERP.',
                 utm_source: traffic.utm_source || '',
                 utm_medium: traffic.utm_medium || '',
