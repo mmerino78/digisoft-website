@@ -105,15 +105,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const email = demoForm.querySelector('#demo-email').value.trim();
             const telefono = demoForm.querySelector('#demo-telefono').value.trim();
 
-            // Atribución → bloque al mensaje (backwards compat) + campos separados (preferido cuando backend lo soporte)
+            // Atribución → campos separados (backend digisol.do/api/contact renderiza sección dedicada)
             var traffic = window._gaTraffic || {};
-            var attribLines = [];
-            if (traffic.utm_source) attribLines.push('utm_source: ' + traffic.utm_source);
-            if (traffic.utm_medium) attribLines.push('utm_medium: ' + traffic.utm_medium);
-            if (traffic.utm_campaign) attribLines.push('utm_campaign: ' + traffic.utm_campaign);
-            attribLines.push('page_url: ' + window.location.href);
-            if (document.referrer) attribLines.push('referrer: ' + document.referrer);
-            var attribBlock = attribLines.length ? '\n\n[Atribución]\n' + attribLines.join('\n') : '';
 
             // Misma API que digisol.do/contact (SMTP único en Vercel Digisol)
             const formData = {
@@ -121,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 email: email,
                 telefono: telefono,
                 servicio: 'desarrollo',
-                mensaje: '[Digisoft — solicitud de prueba gratuita desde digisoft.do]\n\nEnviar al correo indicado la invitación para activar la prueba gratuita del ERP.' + attribBlock,
+                mensaje: '[Digisoft — solicitud de prueba gratuita desde digisoft.do]\n\nEnviar al correo indicado la invitación para activar la prueba gratuita del ERP.',
                 utm_source: traffic.utm_source || '',
                 utm_medium: traffic.utm_medium || '',
                 utm_campaign: traffic.utm_campaign || '',
