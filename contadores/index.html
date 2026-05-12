@@ -1023,6 +1023,7 @@
             if (waLink) {
                 waLink.addEventListener('click', function() {
                     if (typeof trackGA === 'function') trackGA('contadores_tarjeta_whatsapp_clic');
+                    if (typeof fbq === 'function') fbq('track', 'Contact', { source: 'contadores_slidein' });
                 });
             }
         })();

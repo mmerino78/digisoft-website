@@ -10,10 +10,19 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){window.dataLayer.push(arguments);}
     window.gtag = gtag;
-    
+
     gtag('js', new Date());
     gtag('config', 'G-R5007WS0J2');
 })();
+
+// Meta Pixel (Facebook/Instagram) — Pixel ID Digisol 1390007402283907
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1390007402283907');
+fbq('track', 'PageView');
 
 // UTM → first-touch persistente en localStorage (sobrevive cierre de pestaña)
 (function() {
@@ -129,6 +138,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         demoForm.reset();
                         alert('Su mensaje se ha enviado correctamente.');
                         trackGA('formulario_demo_enviado', { empresa: empresa });
+                        if (typeof fbq === 'function') fbq('track', 'Lead', {
+                            content_name: 'Prueba gratis Digisoft',
+                            content_category: 'demo_request',
+                            currency: 'DOP',
+                            value: 0
+                        });
                     } else {
                         btn.textContent = 'Reintentar';
                         alert(result.data.error || 'No se pudo enviar. Prueba por WhatsApp.');
@@ -250,6 +265,7 @@ const waFloat = document.querySelector('.whatsapp-float');
 if (waFloat) {
     waFloat.addEventListener('click', function() {
         trackGA('whatsapp_flotante_clic', { ubicacion: 'boton_flotante' });
+        if (typeof fbq === 'function') fbq('track', 'Contact', { source: 'whatsapp_float' });
     });
 }
 
@@ -486,6 +502,7 @@ document.querySelectorAll('a[href^="http"]').forEach(function(link) {
 
         document.getElementById('popup-cta-wa')?.addEventListener('click', function () {
             track('popup_entrada_whatsapp_clic');
+            if (typeof fbq === 'function') fbq('track', 'Contact', { source: 'popup_whatsapp' });
         });
 
         document.getElementById('popup-cta-form')?.addEventListener('click', function () {
