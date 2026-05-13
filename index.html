@@ -184,6 +184,10 @@
                     <div class="cta-group">
                         <a href="https://wa.me/18098412510" class="cta-button cta-shine" target="_blank"
                             rel="noopener noreferrer">Prueba Gratis 14 Días</a>
+                        <button type="button" class="cta-button cta-secondary" id="video-demo-trigger" aria-label="Ver demo de Digisoft en 60 segundos">
+                            <span class="cta-secondary__icon" aria-hidden="true">▶</span>
+                            Ver demo (60s)
+                        </button>
                     </div>
                     <p class="small-text">14 días gratis, sin tarjeta de crédito requerida</p>
                 </div>
@@ -599,6 +603,17 @@
         <p class="slidein-card__title">¿Te toca reportar a DGII?</p>
         <p class="slidein-card__text">Digisoft genera el 606, 607 y 608 automáticamente con un clic. Pruébalo 14 días gratis.</p>
         <a href="#contacto" class="slidein-card__cta" id="card-cta">Empezar prueba →</a>
+    </div>
+
+    <div class="video-modal" id="video-modal" role="dialog" aria-modal="true" aria-label="Demo de Digisoft" hidden>
+        <button class="video-modal__close" id="video-modal-close" aria-label="Cerrar video">×</button>
+        <div class="video-modal__frame">
+            <video id="video-modal-player" controls playsinline preload="none"
+                poster="/videos/digisoft-demo-poster.jpg">
+                <source src="/videos/digisoft-demo.mp4" type="video/mp4">
+                Tu navegador no soporta video HTML5.
+            </video>
+        </div>
     </div>
 
     <a href="https://wa.me/18098412510" class="whatsapp-float" target="_blank" rel="noopener noreferrer"

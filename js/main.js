@@ -583,5 +583,55 @@ window.addEventListener('error', function(e) {
     }
 });
 
+// Video demo modal
+(function () {
+    const trigger = document.getElementById('video-demo-trigger');
+    const modal = document.getElementById('video-modal');
+    const closeBtn = document.getElementById('video-modal-close');
+    const player = document.getElementById('video-modal-player');
+    if (!trigger || !modal || !player) return;
+
+    let watchedQuartiles = { 25: false, 50: false, 75: false, 100: false };
+
+    function openModal() {
+        modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+        player.currentTime = 0;
+        watchedQuartiles = { 25: false, 50: false, 75: false, 100: false };
+        const playPromise = player.play();
+        if (playPromise) playPromise.catch(() => {});
+        trackGA('video_demo_play', { source: 'hero_cta' });
+    }
+    function closeModal() {
+        player.pause();
+        modal.hidden = true;
+        document.body.style.overflow = '';
+    }
+    trigger.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !modal.hidden) closeModal();
+    });
+    player.addEventListener('timeupdate', function () {
+        if (!player.duration) return;
+        const pct = (player.currentTime / player.duration) * 100;
+        [25, 50, 75].forEach(q => {
+            if (!watchedQuartiles[q] && pct >= q) {
+                watchedQuartiles[q] = true;
+                trackGA('video_demo_progress', { percent: q });
+            }
+        });
+    });
+    player.addEventListener('ended', function () {
+        if (!watchedQuartiles[100]) {
+            watchedQuartiles[100] = true;
+            trackGA('video_demo_complete', {});
+        }
+    });
+})();
+
 // Log cuando la página carga
 console.log('✅ Digisoft page loaded successfully');
