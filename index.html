@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="canonical" href="https://digisoft.do/">
+    <link rel="preload" as="image" href="/images/hero/erp-dashboard.webp" type="image/webp" fetchpriority="high">
     <meta name="description"
         content="Digisoft es el ERP dominicano con OCR e IA para automatizar facturación electrónica, reportes DGII 606/607/608 y contabilidad. Hecho en República Dominicana por Digisol SRL.">
     <title>Digisoft - ERP y Facturación Electrónica para Empresas en República Dominicana</title>
@@ -112,8 +113,12 @@
                 <div>
                     <div
                         style="position: relative; background: linear-gradient(135deg, #F5F5F5 0%, #E2E8F0 100%); border-radius: 12px; overflow: hidden; box-shadow: 0 12px 24px rgba(0,0,0,0.1); padding: 20px;">
-                        <img src="images/hero/erp-dashboard.png" alt="Dashboard de Digisoft"
-                            style="width: 100%; border-radius: 8px;">
+                        <picture>
+                            <source srcset="images/hero/erp-dashboard.webp" type="image/webp">
+                            <img src="images/hero/erp-dashboard.png" alt="Dashboard de Digisoft"
+                                width="797" height="942" loading="eager" fetchpriority="high"
+                                style="width: 100%; height: auto; border-radius: 8px;">
+                        </picture>
                     </div>
                 </div>
             </div>
