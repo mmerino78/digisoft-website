@@ -481,13 +481,17 @@ document.querySelectorAll('a[href^="http"]').forEach(function(link) {
         });
     }
 
-    // ---- 2. SLIDE-IN CARD (desktop, abajo a la derecha — se activa desde el popup) ----
+    // ---- 2. SLIDE-IN CARD (desktop, abajo a la derecha — trigger independiente a 30s) ----
     const card = document.getElementById('slidein-card');
 
     function showCard() {
         if (!card || sessionStorage.getItem('card_dismissed')) return;
         card.classList.add('visible');
         track('tarjeta_lateral_visible');
+    }
+
+    if (card && window.innerWidth > 768 && !sessionStorage.getItem('card_dismissed')) {
+        setTimeout(showCard, 30000);
     }
 
     document.getElementById('card-close')?.addEventListener('click', function () {
@@ -499,77 +503,6 @@ document.querySelectorAll('a[href^="http"]').forEach(function(link) {
     document.getElementById('card-cta')?.addEventListener('click', function () {
         track('tarjeta_lateral_cta_clic');
     });
-
-    // ---- 3. POPUP (intent-based: exit en desktop, scroll 50% en mobile, fallback 20s) ----
-    const popup = document.getElementById('exit-popup');
-    if (popup && !sessionStorage.getItem('popup_shown')) {
-        var popupFired = false;
-        var isMobile = window.innerWidth <= 768;
-
-        function showPopup(disparo) {
-            if (popupFired) return;
-            popupFired = true;
-            popup.classList.add('active');
-            sessionStorage.setItem('popup_shown', '1');
-            track('popup_entrada_visible', { disparo: disparo });
-        }
-
-        if (isMobile) {
-            // Mobile: trigger por scroll 50% (intención real de leer)
-            var scrollListener = function () {
-                var pct = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100;
-                if (pct >= 50) {
-                    showPopup('scroll_50');
-                    window.removeEventListener('scroll', scrollListener);
-                }
-            };
-            window.addEventListener('scroll', scrollListener, { passive: true });
-        } else {
-            // Desktop: exit-intent real (mouseleave hacia el top del viewport)
-            var exitListener = function (e) {
-                if (e.clientY <= 0) {
-                    showPopup('exit_intent');
-                    document.removeEventListener('mouseleave', exitListener);
-                }
-            };
-            document.addEventListener('mouseleave', exitListener);
-        }
-
-        // Fallback: si nada disparó en 20s, mostrar igualmente (no perder tráfico bouncing)
-        setTimeout(function () { showPopup('fallback_20s'); }, 20000);
-
-        function closePopup() {
-            popup.classList.remove('active');
-            if (window.innerWidth > 768) {
-                setTimeout(showCard, 8000);
-            }
-        }
-
-        document.getElementById('exit-popup-close')?.addEventListener('click', function () {
-            closePopup();
-            track('popup_entrada_cerrado');
-        });
-
-        popup.addEventListener('click', function (e) {
-            if (e.target === popup) {
-                closePopup();
-                track('popup_entrada_cerrado');
-            }
-        });
-
-        document.getElementById('popup-cta-wa')?.addEventListener('click', function () {
-            track('popup_entrada_whatsapp_clic');
-            var popupWaEventId = generateMetaEventId();
-            if (typeof fbq === 'function') fbq('track', 'Contact', { source: 'popup_whatsapp' }, { eventID: popupWaEventId });
-            sendMetaCAPI('Contact', popupWaEventId, { custom_data: { source: 'popup_whatsapp' } });
-        });
-
-        document.getElementById('popup-cta-form')?.addEventListener('click', function () {
-            closePopup();
-            document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' });
-            track('popup_entrada_formulario_clic');
-        });
-    }
 })();
 
 // Errores JS en producción
