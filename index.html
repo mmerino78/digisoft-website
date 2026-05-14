@@ -591,11 +591,14 @@
     <div class="video-modal" id="video-modal" role="dialog" aria-modal="true" aria-label="Demo de Digisoft" hidden>
         <button class="video-modal__close" id="video-modal-close" aria-label="Cerrar video">×</button>
         <div class="video-modal__frame">
-            <video id="video-modal-player" controls playsinline preload="none"
+            <video id="video-modal-player" controls playsinline preload="metadata"
                 poster="/videos/digisoft-demo-poster.jpg">
                 <source src="/videos/digisoft-demo.mp4" type="video/mp4">
-                Tu navegador no soporta video HTML5.
             </video>
+            <div class="video-modal__fallback" id="video-modal-fallback" hidden>
+                <p>El video no se puede reproducir en tu navegador.</p>
+                <a href="https://wa.me/18098412510" target="_blank" rel="noopener noreferrer" class="video-modal__fallback-cta">💬 Solicitar demo por WhatsApp</a>
+            </div>
         </div>
     </div>
 
