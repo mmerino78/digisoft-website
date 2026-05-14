@@ -467,7 +467,7 @@ document.querySelectorAll('a[href^="http"]').forEach(function(link) {
             bar.classList.add('visible');
             document.body.classList.add('bar-visible');
             track('barra_inferior_visible');
-        }, 4000);
+        }, 10000);
 
         document.getElementById('bar-close')?.addEventListener('click', function () {
             bar.classList.remove('visible');
@@ -500,7 +500,7 @@ document.querySelectorAll('a[href^="http"]').forEach(function(link) {
         track('tarjeta_lateral_cta_clic');
     });
 
-    // ---- 3. POPUP (intent-based: exit en desktop, scroll 50% en mobile, fallback 30s) ----
+    // ---- 3. POPUP (intent-based: exit en desktop, scroll 50% en mobile, fallback 20s) ----
     const popup = document.getElementById('exit-popup');
     if (popup && !sessionStorage.getItem('popup_shown')) {
         var popupFired = false;
@@ -535,8 +535,8 @@ document.querySelectorAll('a[href^="http"]').forEach(function(link) {
             document.addEventListener('mouseleave', exitListener);
         }
 
-        // Fallback: si nada disparó en 8s, mostrar igualmente (no perder tráfico bouncing)
-        setTimeout(function () { showPopup('fallback_8s'); }, 8000);
+        // Fallback: si nada disparó en 20s, mostrar igualmente (no perder tráfico bouncing)
+        setTimeout(function () { showPopup('fallback_20s'); }, 20000);
 
         function closePopup() {
             popup.classList.remove('active');
