@@ -198,54 +198,91 @@ nav a:hover {
 
 /* Hero inline lead form */
 .hero-form {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto;
     gap: 10px;
-    margin: 24px 0 12px;
-    max-width: 520px;
-    flex-wrap: wrap;
+    margin: 28px 0 12px;
+    max-width: 580px;
+    align-items: stretch;
 }
 .hero-form input[type="email"] {
-    flex: 1 1 220px;
+    width: 100%;
     min-width: 0;
-    padding: 14px 16px;
+    padding: 0 18px;
+    height: 56px;
     font-size: 16px;
-    border: 2px solid #E2E8F0;
-    border-radius: 10px;
+    border: 2px solid var(--border, #E2E8F0);
+    border-radius: 12px;
     background: #fff;
-    color: #1E293B;
+    color: var(--text, #1E293B);
     transition: border-color .2s, box-shadow .2s;
     -webkit-appearance: none;
     appearance: none;
+    font-family: inherit;
+}
+.hero-form input[type="email"]::placeholder {
+    color: #94A3B8;
 }
 .hero-form input[type="email"]:focus {
     outline: none;
     border-color: var(--accent, #10B981);
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
 }
 .hero-form input[type="email"].is-error {
     border-color: #DC2626;
-    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.12);
 }
 .hero-form__submit {
-    flex: 1 1 200px;
-    padding: 14px 22px;
-    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 56px;
+    padding: 0 28px;
+    font-size: 16px;
+    font-weight: 600;
     white-space: nowrap;
-    min-height: 50px;
     cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(24, 53, 94, 0.25);
+    transition: transform .15s ease, box-shadow .2s ease;
+}
+.hero-form__submit::after {
+    content: "→";
+    font-size: 18px;
+    line-height: 1;
+    transition: transform .15s ease;
+}
+.hero-form__submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(24, 53, 94, 0.32);
+}
+.hero-form__submit:hover::after {
+    transform: translateX(3px);
+}
+.hero-form__submit:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(24, 53, 94, 0.25);
 }
 .hero-form__submit:disabled {
     opacity: 0.7;
     cursor: not-allowed;
+    transform: none;
 }
 .hero-form__alt {
     font-size: 14px;
-    color: var(--text-light);
-    margin: 6px 0 16px;
+    color: var(--text-light, #475569);
+    margin: 10px 0 16px;
 }
 .hero-form__alt a {
-    color: inherit;
-    text-decoration: underline;
+    color: var(--primary, #18355E);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid currentColor;
+}
+.hero-form__alt a:hover {
+    color: var(--secondary, #FF6B35);
 }
 .hero-form__success {
     display: flex;
@@ -264,9 +301,11 @@ nav a:hover {
 .hero-form__success[hidden] { display: none; }
 .hero-form__success-icon { font-size: 22px; flex-shrink: 0; }
 @media (max-width: 640px) {
-    .hero-form { gap: 8px; }
-    .hero-form input[type="email"] { flex: 1 1 100%; }
-    .hero-form__submit { flex: 1 1 100%; }
+    .hero-form {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    .hero-form__submit { width: 100%; padding: 0 16px; }
 }
 
 /* ===== MÓDULOS ===== */
