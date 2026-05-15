@@ -460,17 +460,10 @@ document.querySelectorAll('a[href^="http"]').forEach(function(link) {
         trackGA(event, params);
     }
 
-    // Banner mutual exclusion: skip si modal video abierto
-    function modalActive() {
-        const m = document.getElementById('video-modal');
-        return m && !m.hidden;
-    }
-
     // ---- 1. STICKY BOTTOM BAR (solo mobile) ----
     const bar = document.getElementById('sticky-bottom-bar');
     if (bar && window.innerWidth <= 768 && !sessionStorage.getItem('bar_dismissed')) {
         setTimeout(function () {
-            if (modalActive()) return;
             bar.classList.add('visible');
             document.body.classList.add('bar-visible');
             track('barra_inferior_visible');
@@ -493,7 +486,6 @@ document.querySelectorAll('a[href^="http"]').forEach(function(link) {
 
     function showCard() {
         if (!card || sessionStorage.getItem('card_dismissed')) return;
-        if (modalActive()) return;
         card.classList.add('visible');
         track('tarjeta_lateral_visible');
     }
@@ -523,77 +515,6 @@ window.addEventListener('error', function(e) {
         });
     }
 });
-
-// Video demo modal
-(function () {
-    const trigger = document.getElementById('video-demo-trigger');
-    const modal = document.getElementById('video-modal');
-    const closeBtn = document.getElementById('video-modal-close');
-    const player = document.getElementById('video-modal-player');
-    const fallback = document.getElementById('video-modal-fallback');
-    if (!trigger || !modal || !player) return;
-
-    const ua = navigator.userAgent || '';
-    const isInAppBrowser = /FBAN|FBAV|FB_IAB|Instagram|FBIOS/i.test(ua);
-    const canPlayMp4 = player.canPlayType && player.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"') !== '';
-
-    if (isInAppBrowser || !canPlayMp4) {
-        trigger.style.display = 'none';
-        trackGA('video_demo_unsupported', { reason: isInAppBrowser ? 'inapp' : 'no_mp4' });
-        return;
-    }
-
-    let watchedQuartiles = { 25: false, 50: false, 75: false, 100: false };
-
-    function showFallback() {
-        if (fallback) {
-            fallback.hidden = false;
-            player.style.display = 'none';
-        }
-        trackGA('video_demo_error', {});
-    }
-
-    function openModal() {
-        modal.hidden = false;
-        document.body.style.overflow = 'hidden';
-        if (fallback) { fallback.hidden = true; player.style.display = ''; }
-        player.currentTime = 0;
-        watchedQuartiles = { 25: false, 50: false, 75: false, 100: false };
-        const playPromise = player.play();
-        if (playPromise) playPromise.catch(showFallback);
-        trackGA('video_demo_play', { source: 'hero_cta' });
-    }
-    function closeModal() {
-        player.pause();
-        modal.hidden = true;
-        document.body.style.overflow = '';
-    }
-    trigger.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', function (e) {
-        if (e.target === modal) closeModal();
-    });
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && !modal.hidden) closeModal();
-    });
-    player.addEventListener('error', showFallback);
-    player.addEventListener('timeupdate', function () {
-        if (!player.duration) return;
-        const pct = (player.currentTime / player.duration) * 100;
-        [25, 50, 75].forEach(q => {
-            if (!watchedQuartiles[q] && pct >= q) {
-                watchedQuartiles[q] = true;
-                trackGA('video_demo_progress', { percent: q });
-            }
-        });
-    });
-    player.addEventListener('ended', function () {
-        if (!watchedQuartiles[100]) {
-            watchedQuartiles[100] = true;
-            trackGA('video_demo_complete', {});
-        }
-    });
-})();
 
 // Log cuando la página carga
 console.log('✅ Digisoft page loaded successfully');
