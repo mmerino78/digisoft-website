@@ -238,7 +238,6 @@ document.addEventListener('DOMContentLoaded', function () {
             btn.textContent = 'Enviando...';
             btn.disabled = true;
 
-            const empresa = demoForm.querySelector('#demo-empresa').value.trim();
             const email = demoForm.querySelector('#demo-email').value.trim();
 
             // Atribución → campos separados (backend digisol.do/api/contact renderiza sección dedicada)
@@ -246,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Misma API que digisol.do/contact (SMTP único en Vercel Digisol)
             const formData = {
-                nombre: empresa,
+                nombre: '(Lead Digisoft — sin empresa)',
                 email: email,
                 servicio: 'Prueba gratuita Digisoft (14 días)',
                 mensaje: '[Digisoft — solicitud de prueba gratuita desde digisoft.do]\n\nEnviar al correo indicado la invitación para activar la prueba gratuita del ERP.',
@@ -272,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         btn.textContent = '¡Enviado!';
                         demoForm.reset();
                         alert('Su mensaje se ha enviado correctamente.');
-                        trackGA('formulario_demo_enviado', { empresa: empresa });
+                        trackGA('formulario_demo_enviado', { email_dominio: email.split('@')[1] || '' });
                         var leadEventId = generateMetaEventId();
                         if (typeof fbq === 'function') fbq('track', 'Lead', {
                             content_name: 'Prueba gratis Digisoft',
