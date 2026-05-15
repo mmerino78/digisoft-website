@@ -130,6 +130,105 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Hero inline lead form (email only)
+    const heroForm = document.getElementById('hero-form');
+    if (heroForm) {
+        const heroEmailInput = heroForm.querySelector('#hero-email');
+        const heroSubmit = heroForm.querySelector('.hero-form__submit');
+        const heroSuccess = document.getElementById('hero-form-success');
+        const heroAlt = heroForm.parentElement.querySelector('.hero-form__alt');
+        const heroTrust = heroForm.parentElement.querySelector('.small-text');
+
+        heroForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const email = heroEmailInput.value.trim();
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                heroEmailInput.classList.add('is-error');
+                heroEmailInput.focus();
+                trackGA('formulario_hero_invalido', { motivo: 'email_invalido' });
+                return;
+            }
+            heroEmailInput.classList.remove('is-error');
+            const originalText = heroSubmit.textContent;
+            heroSubmit.textContent = 'Enviando...';
+            heroSubmit.disabled = true;
+
+            const traffic = window._gaTraffic || {};
+            const payload = {
+                nombre: '(Lead hero — sin empresa)',
+                email: email,
+                servicio: 'Prueba gratuita Digisoft (14 días) — desde HERO',
+                mensaje: '[Digisoft HERO LEAD] Solicitud rápida prueba gratis desde el formulario inline del hero.',
+                utm_source: traffic.utm_source || '',
+                utm_medium: traffic.utm_medium || '',
+                utm_campaign: traffic.utm_campaign || '',
+                page_url: window.location.href,
+                referrer: document.referrer || ''
+            };
+
+            fetch('https://digisol.do/api/contact/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+                .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+                .then(function (result) {
+                    if (result.ok && result.data.success) {
+                        heroForm.hidden = true;
+                        if (heroAlt) heroAlt.hidden = true;
+                        if (heroTrust) heroTrust.hidden = true;
+                        if (heroSuccess) heroSuccess.hidden = false;
+                        trackGA('formulario_hero_enviado', { email_dominio: email.split('@')[1] || '' });
+                        const leadEventId = generateMetaEventId();
+                        if (typeof fbq === 'function') fbq('track', 'Lead', {
+                            content_name: 'Prueba gratis Digisoft (hero)',
+                            content_category: 'demo_request_hero',
+                            currency: 'DOP',
+                            value: 0
+                        }, { eventID: leadEventId });
+                        sendMetaCAPI('Lead', leadEventId, {
+                            email: email,
+                            custom_data: {
+                                content_name: 'Prueba gratis Digisoft (hero)',
+                                content_category: 'demo_request_hero',
+                                currency: 'DOP',
+                                value: 0
+                            }
+                        });
+                    } else {
+                        heroSubmit.textContent = 'Reintentar';
+                        heroSubmit.disabled = false;
+                        trackGA('formulario_hero_error', { motivo: result.data.error || 'server_error' });
+                    }
+                })
+                .catch(function () {
+                    heroSubmit.textContent = 'Reintentar';
+                    heroSubmit.disabled = false;
+                    trackGA('formulario_hero_error', { motivo: 'sin_conexion' });
+                })
+                .finally(function () {
+                    setTimeout(function () {
+                        if (heroSubmit.textContent === 'Enviando...') {
+                            heroSubmit.textContent = originalText;
+                            heroSubmit.disabled = false;
+                        }
+                    }, 5000);
+                });
+        });
+
+        heroEmailInput?.addEventListener('focus', function () {
+            heroEmailInput.classList.remove('is-error');
+            if (!heroEmailInput.dataset.touched) {
+                heroEmailInput.dataset.touched = '1';
+                trackGA('formulario_hero_iniciado', {});
+            }
+        });
+
+        document.getElementById('hero-wa')?.addEventListener('click', function () {
+            trackGA('hero_whatsapp_clic', {});
+        });
+    }
+
     const demoForm = document.getElementById('demo-form');
     if (demoForm) {
         demoForm.addEventListener('submit', function (e) {

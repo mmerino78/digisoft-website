@@ -181,11 +181,21 @@
                         <li>Acompañamiento en tu certificación como emisor de e-CF</li>
                     </ul>
 
-                    <div class="cta-group">
-                        <a href="https://wa.me/18098412510" class="cta-button cta-shine" target="_blank"
-                            rel="noopener noreferrer">Prueba Gratis 14 Días</a>
+                    <form id="hero-form" class="hero-form" novalidate>
+                        <input type="email" name="email" id="hero-email" required
+                            placeholder="tu@correo.com" autocomplete="email" aria-label="Correo electrónico">
+                        <button type="submit" class="cta-button cta-shine hero-form__submit">Quiero mi prueba gratis</button>
+                    </form>
+                    <p class="small-text">14 días gratis · Sin tarjeta · Soporte local 🇩🇴</p>
+                    <p class="hero-form__alt">o
+                        <a href="https://wa.me/18098412510" target="_blank" rel="noopener noreferrer" id="hero-wa">💬 hablar por WhatsApp</a>
+                    </p>
+                    <div class="hero-form__success" id="hero-form-success" hidden>
+                        <span class="hero-form__success-icon" aria-hidden="true">✅</span>
+                        <div>
+                            <strong>¡Recibido!</strong> Te contactamos en 2 horas. Revisa tu correo.
+                        </div>
                     </div>
-                    <p class="small-text">14 días gratis, sin tarjeta de crédito requerida</p>
                 </div>
                 <div>
                     <div
