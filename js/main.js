@@ -224,6 +224,19 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
+        heroEmailInput?.addEventListener('blur', function () {
+            const v = heroEmailInput.value.trim();
+            const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+            if (valid && !heroEmailInput.dataset.submitted) {
+                heroEmailInput.dataset.emailValido = '1';
+                trackGA('formulario_hero_email_valido_sin_enviar', { email_dominio: v.split('@')[1] || '' });
+            }
+        });
+
+        heroForm.addEventListener('submit', function () {
+            if (heroEmailInput) heroEmailInput.dataset.submitted = '1';
+        }, { capture: true });
+
         document.getElementById('hero-wa')?.addEventListener('click', function () {
             trackGA('hero_whatsapp_clic', {});
         });
